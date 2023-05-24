@@ -269,6 +269,7 @@ require(['plotly'], function(Plotly) {
 <section id="distribution-of-languages-based-on-the-titles" class="level2">
 <h2 class="anchored" data-anchor-id="distribution-of-languages-based-on-the-titles">Distribution of languages, based on the titles</h2>
 <p>We don’t have abstracts or full texts in the dataset, but on the basis of the titles alone, we can determine the (most likely) language of the publication.</p>
+<p>The following table shows the number of times the top 10 languages occur in the dataset.</p>
 <div class="cell" data-execution_count="24">
 <details>
 <summary>Code</summary>
@@ -313,19 +314,16 @@ require(['plotly'], function(Plotly) {
 <span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    titles_langs_counts <span class="op">=</span> <span class="bu">dict</span>(Counter(titles_langs))</span>
 <span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    tlc <span class="op">=</span> pd.DataFrame.from_dict(titles_langs_counts, orient<span class="op">=</span><span class="st">"index"</span>).reset_index().rename(mapper<span class="op">=</span>{<span class="st">"index"</span>:<span class="st">"language"</span>, <span class="dv">0</span> : <span class="st">"count"</span>}, axis<span class="op">=</span><span class="st">"columns"</span>)</span>
 <span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    tlc.sort_values(by<span class="op">=</span><span class="st">"count"</span>, ascending<span class="op">=</span><span class="va">False</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The following table shows the number of times the top 10 languages occur in the dataset.</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Display the table nicely</span></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    tlc1 <span class="op">=</span> tlc.head(<span class="dv">10</span>).style.hide(axis<span class="op">=</span><span class="st">"index"</span>)</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    display(tlc1)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Display the table nicely</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    display(tlc.head(<span class="dv">10</span>).style.hide(axis<span class="op">=</span><span class="st">"index"</span>))</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tlc</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tlc</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main(titles): </span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>   <span class="kw">global</span> tlc</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>   tlc <span class="op">=</span> get_titles_langs_counts(titles) </span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>main(titles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main(titles): </span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>   <span class="kw">global</span> tlc</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>   tlc <span class="op">=</span> get_titles_langs_counts(titles) </span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>main(titles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>The following table shows the number of times the top 10 languages occur in the dataset.
