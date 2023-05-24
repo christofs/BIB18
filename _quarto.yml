@@ -1,0 +1,22 @@
+project:
+  type: website
+
+website:
+  title: "Bib18 Dataset"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - titles.ipynb
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-summary: "Code"
+
+
+

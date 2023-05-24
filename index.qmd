@@ -1,0 +1,7 @@
+---
+title: "bib18"
+---
+
+Website containing analyses of the Bibliographie18 Dataset. 
+
+For more information on the dataset, see: https://github.com/christofs/bibliographie18. 
