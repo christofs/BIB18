@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BIB18 - Introduction</title>
+<title>BIB18 - Titles</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -139,7 +139,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./titles.html" rel="" target="" aria-current="page">
- <span class="menu-text">Introduction</span></a>
+ <span class="menu-text">Titles</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./collaborations.html" rel="" target="">
@@ -175,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction</h1>
+<h1 class="title">Titles</h1>
 </div>
 
 
@@ -191,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>The titles included in the bibliography tell us a few things, for instance the language a publication is written in or the main themes (keywords, authors) that is the subject of a publication. Let’s find out about them. (The code below initializes the analyis.)</p>
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === Imports === </span></span>
@@ -214,9 +214,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># === Files and parameters === </span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>wdir  <span class="op">=</span> join(<span class="st">"/"</span>, <span class="st">"media"</span>, <span class="st">"christof"</span>, <span class="st">"Data"</span>, <span class="st">"Github"</span>, <span class="st">"christofs"</span>, <span class="st">"bib18"</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">#Bib18_file = join(wdir, "data", "Bib18_test.rdf") </span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>Bib18_file <span class="op">=</span> join(wdir, <span class="st">"data"</span>, <span class="st">"Bib18.rdf"</span>) </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>wdir  <span class="op">=</span> join(<span class="st">"/"</span>, <span class="st">"media"</span>, <span class="st">"christof"</span>, <span class="st">"Data"</span>, <span class="st">"Github"</span>, <span class="st">"christofs"</span>, <span class="st">"BIB18"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>Bib18_file <span class="op">=</span> join(wdir, <span class="st">"data"</span>, <span class="st">"BIB18_Zotero-RDF.rdf"</span>) </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Bib18_file = join(wdir, "data", "BIB18_Zotero-RDF_TEST.rdf") </span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>namespaces <span class="op">=</span> {</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"foaf"</span> : <span class="st">"http://xmlns.com/foaf/0.1/"</span>,</span>
@@ -244,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="extracting-the-titles" class="level2">
 <h2 class="anchored" data-anchor-id="extracting-the-titles">Extracting the titles</h2>
 <p>The first step is to identify the titles in the dataset. Ideally, we would exclude titles of journals, for instance, but this is not done here yet.</p>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="3">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_titles(Bib18): </span>
@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="distribution-of-languages-based-on-the-titles">Distribution of languages, based on the titles</h2>
 <p>We don’t have abstracts or full texts in the dataset, but on the basis of the titles alone, the (most likely) language of the publication can be determined. (Note that an algorithmic process, based on the library py-lingua and using only the sometimes very short titles, has been used to create this data, so errors are to be expected. With the progress of corrections in the dataset, this will improve over time.)</p>
 <p>The following table shows the number of times several different languages occur in the dataset.</p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_lang_counts(Bib18): </span>
@@ -311,52 +311,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <style type="text/css">
 </style>
 
-<table id="T_a99d1" data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table id="T_6ff26" data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_a99d1_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">language</th>
-<th id="T_a99d1_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">count</th>
+<th id="T_6ff26_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">language</th>
+<th id="T_6ff26_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">count</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_a99d1_row0_col0" class="data row0 col0">French</td>
-<td id="T_a99d1_row0_col1" class="data row0 col1">47579</td>
+<td id="T_6ff26_row0_col0" class="data row0 col0">French</td>
+<td id="T_6ff26_row0_col1" class="data row0 col1">47579</td>
 </tr>
 <tr class="even">
-<td id="T_a99d1_row1_col0" class="data row1 col0">English</td>
-<td id="T_a99d1_row1_col1" class="data row1 col1">13348</td>
+<td id="T_6ff26_row1_col0" class="data row1 col0">English</td>
+<td id="T_6ff26_row1_col1" class="data row1 col1">13348</td>
 </tr>
 <tr class="odd">
-<td id="T_a99d1_row2_col0" class="data row2 col0">Italian</td>
-<td id="T_a99d1_row2_col1" class="data row2 col1">958</td>
+<td id="T_6ff26_row2_col0" class="data row2 col0">Italian</td>
+<td id="T_6ff26_row2_col1" class="data row2 col1">958</td>
 </tr>
 <tr class="even">
-<td id="T_a99d1_row3_col0" class="data row3 col0">German</td>
-<td id="T_a99d1_row3_col1" class="data row3 col1">915</td>
+<td id="T_6ff26_row3_col0" class="data row3 col0">German</td>
+<td id="T_6ff26_row3_col1" class="data row3 col1">915</td>
 </tr>
 <tr class="odd">
-<td id="T_a99d1_row4_col0" class="data row4 col0">Spanish</td>
-<td id="T_a99d1_row4_col1" class="data row4 col1">866</td>
+<td id="T_6ff26_row4_col0" class="data row4 col0">Spanish</td>
+<td id="T_6ff26_row4_col1" class="data row4 col1">866</td>
 </tr>
 <tr class="even">
-<td id="T_a99d1_row5_col0" class="data row5 col0">Dutch</td>
-<td id="T_a99d1_row5_col1" class="data row5 col1">282</td>
+<td id="T_6ff26_row5_col0" class="data row5 col0">Dutch</td>
+<td id="T_6ff26_row5_col1" class="data row5 col1">282</td>
 </tr>
 <tr class="odd">
-<td id="T_a99d1_row6_col0" class="data row6 col0">Swedish</td>
-<td id="T_a99d1_row6_col1" class="data row6 col1">231</td>
+<td id="T_6ff26_row6_col0" class="data row6 col0">Swedish</td>
+<td id="T_6ff26_row6_col1" class="data row6 col1">231</td>
 </tr>
 <tr class="even">
-<td id="T_a99d1_row7_col0" class="data row7 col0">Portuguese</td>
-<td id="T_a99d1_row7_col1" class="data row7 col1">217</td>
+<td id="T_6ff26_row7_col0" class="data row7 col0">Portuguese</td>
+<td id="T_6ff26_row7_col1" class="data row7 col1">217</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <p>Let’s visualize this data as well.</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="5">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize_tlc(lang_counts): </span>

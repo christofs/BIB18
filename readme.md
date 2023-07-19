@@ -1,4 +1,6 @@
-# BIB18 – Data and Analysis of Bibliographie sur le XVIIIe siècle
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8165485.svg)](https://doi.org/10.5281/zenodo.8165485)
+
+**BIB18 – Data and Analysis of Bibliographie sur le XVIIIe siècle**
 
 ## Folders in this repository 
 

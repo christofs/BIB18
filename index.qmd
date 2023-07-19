@@ -2,11 +2,11 @@
 title: "BIB18"
 ---
 
-Website containing data and analyses of the dataset derived from the *Bibliographie sur le XVIIIe siècle*. 
+**BIB18 – Curation and analyses of the dataset derived from the Bibliographie sur le XVIIIe siècle**
 
 ## Overview 
 
-Some analyses of the dataset are available on the present website. The scripts to create the analyses and generate the website pages is also available at [github.com/christofs/BIB18](https://github.com/christofs/BIB18). The analyses are based on the RDF version of the data (currently, v0.1.0, May 20, 2023) and have been performed by Christof Schöch. Note that all numbers can be expected to shift slighly as the process of cleaning the data proceeds. Collaborative authorship / editorship as well as the publication types will most likely be most affected by corrections. 
+Some analyses of the dataset are available on the present website. The analyses are based on the RDF version of the data (currently, v0.1.0, May 20, 2023) and have been performed by Christof Schöch. Note that all numbers can be expected to shift slighly as the process of cleaning the data proceeds. Collaborative authorship / editorship as well as the publication types will most likely be most affected by corrections. The scripts to create the analyses and generate the website pages is also available at [github.com/christofs/BIB18](https://github.com/christofs/BIB18).
 
 Source of the data: Benoît Melançon, for background information see [mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html](http://mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html) and for the Dataverse deposit, see [doi.org/10.5683/SP3/PYYEEH](https://doi.org/10.5683/SP3/PYYEEH). 
 
@@ -17,3 +17,7 @@ The full bibliography can also be consulted on Zotero, see: [zotero.org/groups/5
 ## Nota bene
 
 Benoît Melançon specifies: "Quiconque souhaite s’approprier ces données peut le faire, sous deux conditions. 1. L’attribution de la collecte des données doit toujours être rappelée, par exemple sous la forme «Données colligées par Benoît Melançon». 2. Aucune exploitation commerciale de ces données n’est tolérée. Elles ne peuvent pas être vendues sous quelque forme que ce soit. Autrement dit, chez Creative Commons : Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) — [https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)."
+
+## Citation suggestion 
+
+Christof Schöch. *BIB18 – Curation and Analysis of the dataset derived from the Bibliographie sur le XVIIIe siècle*, v0.2.0. Github.com, 2023. DOI: [10.5281/zenodo.8165485](https://doi.org/10.5281/zenodo.8165485). 
