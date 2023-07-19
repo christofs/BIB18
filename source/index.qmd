@@ -1,8 +1,8 @@
 ---
-title: "bib18"
+title: "BIB18"
 ---
 
-Website containing analyses of the Bibliographie18 Dataset. 
+Website containing data and analyses of the dataset derived from the *Bibliographie sur le XVIIIe siècle*. 
 
 ## Orientation 
 
