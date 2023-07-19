@@ -46,7 +46,7 @@
     "href": "index.html#orientation",
     "title": "bib18",
     "section": "Orientation",
-    "text": "Orientation\nSource of the data: Benoît Melançon, for background information see http://mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html and for the Dataverse deposit, see https://doi.org/10.5683/SP3/PYYEEH.\nFor more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see: https://github.com/christofs/bibliographie18. The transformation was performed in May 2023.\nThe resulting bibliography can be consulted on Zotero, see: https://www.zotero.org/groups/5067408/bibliographie18.\nSome analyses of the dataset are available on the present website."
+    "text": "Orientation\nSource of the data: Benoît Melançon, for background information see mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html and for the Dataverse deposit, see doi.org/10.5683/SP3/PYYEEH.\nFor more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see: github.com/christofs/bibliographie18. The transformation was performed in May 2023.\nThe resulting bibliography can be consulted on Zotero, see: zotero.org/groups/5067408/bibliographie18.\nSome analyses of the dataset are available on the present website."
   },
   {
     "objectID": "index.html#nota-bene",
