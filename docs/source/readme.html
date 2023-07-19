@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BIB18</title>
+<title>BIB18 – readme</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../source/index.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../source/index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -108,44 +108,138 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#orientation" id="toc-orientation" class="nav-link active" data-scroll-target="#orientation">Orientation</a></li>
-  <li><a href="#nota-bene" id="toc-nota-bene" class="nav-link" data-scroll-target="#nota-bene">Nota bene</a></li>
+  <li><a href="#analyses-of-the-bibliographie-xviiie-dataset" id="toc-analyses-of-the-bibliographie-xviiie-dataset" class="nav-link active" data-scroll-target="#analyses-of-the-bibliographie-xviiie-dataset">Analyses of the ‘Bibliographie: XVIIIe’ dataset</a>
+  <ul class="collapse">
+  <li><a href="#distribution-of-publications-per-year" id="toc-distribution-of-publications-per-year" class="nav-link" data-scroll-target="#distribution-of-publications-per-year">Distribution of publications per year</a></li>
+  <li><a href="#distribution-of-publication-types-in-the-dataset" id="toc-distribution-of-publication-types-in-the-dataset" class="nav-link" data-scroll-target="#distribution-of-publication-types-in-the-dataset">Distribution of publication types in the dataset</a></li>
+  <li><a href="#distribution-of-languages-in-the-dataset" id="toc-distribution-of-languages-in-the-dataset" class="nav-link" data-scroll-target="#distribution-of-languages-in-the-dataset">Distribution of languages in the dataset</a></li>
+  <li><a href="#most-frequently-occurring-person-names" id="toc-most-frequently-occurring-person-names" class="nav-link" data-scroll-target="#most-frequently-occurring-person-names">Most frequently occurring person names</a></li>
+  <li><a href="#most-frequently-occurring-publisher-names" id="toc-most-frequently-occurring-publisher-names" class="nav-link" data-scroll-target="#most-frequently-occurring-publisher-names">Most frequently occurring publisher names</a></li>
+  <li><a href="#prevalence-of-collaboration-in-the-dataset" id="toc-prevalence-of-collaboration-in-the-dataset" class="nav-link" data-scroll-target="#prevalence-of-collaboration-in-the-dataset">Prevalence of collaboration in the dataset</a></li>
+  <li><a href="#co-editor-networks" id="toc-co-editor-networks" class="nav-link" data-scroll-target="#co-editor-networks">Co-editor networks</a></li>
+  <li><a href="#analysis-of-the-titles" id="toc-analysis-of-the-titles" class="nav-link" data-scroll-target="#analysis-of-the-titles">Analysis of the titles</a></li>
+  <li><a href="#developments-over-time" id="toc-developments-over-time" class="nav-link" data-scroll-target="#developments-over-time">Developments over time</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">BIB18</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<p>Website containing data and analyses of the dataset derived from the <em>Bibliographie sur le XVIIIe siècle</em>.</p>
-<section id="orientation" class="level2">
-<h2 class="anchored" data-anchor-id="orientation">Orientation</h2>
-<p>Source of the data: Benoît Melançon, for background information see <a href="http://mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html">mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html</a> and for the Dataverse deposit, see <a href="https://doi.org/10.5683/SP3/PYYEEH">doi.org/10.5683/SP3/PYYEEH</a>.</p>
-<p>For more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see: <a href="https://github.com/christofs/BIB18">github.com/christofs/BIB18</a>. The transformation was performed in May 2023.</p>
-<p>The resulting bibliography can be consulted on Zotero, see: <a href="https://www.zotero.org/groups/5067408/bibliographie18">zotero.org/groups/5067408/bibliographie18</a>.</p>
-<p>Some analyses of the dataset are available on the present website. The scripts to create the analyses and generate the website pages is also available at <a href="https://github.com/christofs/BIB18">github.com/christofs/BIB18</a>.</p>
+<section id="analyses-of-the-bibliographie-xviiie-dataset" class="level1">
+<h1>Analyses of the ‘Bibliographie: XVIIIe’ dataset</h1>
+<p>The analyses are based on the RDF version of the data (currently, v0.1.0, May 20, 2023) and have been performed by Christof Schöch.</p>
+<p>Note that all numbers can be expected to shift slighly as the process of cleaning the data proceeds. Collaborative authorship / editorship as well as the publication types will most likely be most affected by corrections.</p>
+<section id="distribution-of-publications-per-year" class="level2">
+<h2 class="anchored" data-anchor-id="distribution-of-publications-per-year">Distribution of publications per year</h2>
+<p>The dataset contains 64169 publication years, with 87 different publication years recorded (some of them are errors). Here, only data starting in 1986 is shown (the bibliography was launched in 1992).</p>
+<p><img src="../analysis/figures/pubyear_counts.png" class="img-fluid"></p>
 </section>
-<section id="nota-bene" class="level2">
-<h2 class="anchored" data-anchor-id="nota-bene">Nota bene</h2>
-<p>Benoît Melançon specifies: “Quiconque souhaite s’approprier ces données peut le faire, sous deux conditions. 1. L’attribution de la collecte des données doit toujours être rappelée, par exemple sous la forme «Données colligées par Benoît Melançon». 2. Aucune exploitation commerciale de ces données n’est tolérée. Elles ne peuvent pas être vendues sous quelque forme que ce soit. Autrement dit, chez Creative Commons : Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) — <a href="https://creativecommons.org/licenses/by-nc/4.0/">https://creativecommons.org/licenses/by-nc/4.0/</a>.”</p>
+<section id="distribution-of-publication-types-in-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="distribution-of-publication-types-in-the-dataset">Distribution of publication types in the dataset</h2>
+<p>There are 64397 instances of publication type (each entry has one), with just 6 different types of publication types. This number results from the original bibliography’s data model, but the labels used below are Zotero’s labels. The exception to this rule is that the distinction between monographs and edited volumes is lost in Zotero, which considers both to be books.</p>
+<ul>
+<li>journalArticle: 26615</li>
+<li>book (monographs and edited volumes): 23083</li>
+<li>bookSection: 13368</li>
+<li>thesis: 1296</li>
+<li>dataset: 34</li>
+<li>webpage: 1</li>
+</ul>
+<p>(Visualize as a bubble chart?)</p>
+</section>
+<section id="distribution-of-languages-in-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="distribution-of-languages-in-the-dataset">Distribution of languages in the dataset</h2>
+<p>There are 64396 instances of the <code>language</code> element in the dataset. For the moment, only 8 different languages have been identified, although there are no doubt more languages represented in the dataset. (These will be added with further refinement of the data.)</p>
+<p><img src="figures/languages_counts.png" class="img-fluid"></p>
+<p>Few surprises in the major languages so far: French reigns supreme, before English, with Italian, German and Spanish quite a bit behind.</p>
+</section>
+<section id="most-frequently-occurring-person-names" class="level2">
+<h2 class="anchored" data-anchor-id="most-frequently-occurring-person-names">Most frequently occurring person names</h2>
+<p>There are 94321 mentions of person names in the dataset, in total, for 31026 different person names.</p>
+<p>The person names occurring most frequently in the dataset, irrespective of context or function, are the following, with the number of occurrence of their names:</p>
+<ul>
+<li>Porret, Michel: 439</li>
+<li>Berchtold, Jacques: 388</li>
+<li>Delon, Michel: 383</li>
+<li>Voltaire: 346</li>
+<li>Seth, Catriona: 306</li>
+<li>Herman, Jan: 280</li>
+<li>Pelckmans, Paul: 267</li>
+<li>Moureau, François: 255</li>
+<li>Sermain, Jean-Paul: 240</li>
+<li>Bourdin, Philippe: 235</li>
+</ul>
+</section>
+<section id="most-frequently-occurring-publisher-names" class="level2">
+<h2 class="anchored" data-anchor-id="most-frequently-occurring-publisher-names">Most frequently occurring publisher names</h2>
+<p>There are 37781 mentions of publisher names in the dataset, in total, for 5705 different publisher names.</p>
+<p>The publisher names occurring most frequently in the dataset, irrespective of context or function, are the following, with the number of occurrence of their names:</p>
+<ul>
+<li>Classiques Garnier: 2354</li>
+<li>Honoré Champion: 1349</li>
+<li>Presses universitaires de Rennes: 1306</li>
+<li>Peter Lang: 706</li>
+<li>L’Harmattan: 691</li>
+<li>Voltaire Foundation: 682</li>
+<li>Droz: 552</li>
+<li>Presses universitaires de France: 540</li>
+<li>Gallimard: 523</li>
+<li>Cambridge University Press: 459</li>
+</ul>
+</section>
+<section id="prevalence-of-collaboration-in-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="prevalence-of-collaboration-in-the-dataset">Prevalence of collaboration in the dataset</h2>
+<p>There are 56860 publications in the bibliography that have an author role (for instance monographs, journal articles and book chapters). Shown here is the number of authors in each of these publications. Single authorship is the norm, dual authorship is not uncommon, anything beyond this is exceedingly rare.</p>
+<ul>
+<li>1 author: 53488 (94.1%)</li>
+<li>2 authors: 3361 (5.9%)</li>
+<li>3 authors: 9 (0.02 %)</li>
+<li>4 authors: 2 (0.004%)</li>
+</ul>
+<p>There are 17135 publications in the bibliography that have an editor role (for instance edited volumes, proceedings, special issues, textual editions, etc.). Shown here is the number of editors in each of these publications. Dual editorship is the most common case, but single editorship and triple editorship are also very common. Higher numbers of editors are rarer.</p>
+<ul>
+<li>1 editor: 5558 (32.4%)</li>
+<li>2 editors: 7743 (45.2%)</li>
+<li>3 editors: 2638 (15.4%)</li>
+<li>4 editors: 904 (5.3%)</li>
+<li>5 editors: 256 (1.5%)</li>
+<li>6 editors: 35 (0.2%)</li>
+<li>11 (!) editors: (0.01%)</li>
+</ul>
+</section>
+<section id="co-editor-networks" class="level2">
+<h2 class="anchored" data-anchor-id="co-editor-networks">Co-editor networks</h2>
+<p>As shown above, editorship is an area of particularly intense collaboration in the community of Dix-huitiémistes, based on the data in the bibliography. The following is an initial, experimental attempt to elucidate the data using network visualization.</p>
+<p>The following shows a network of the top 20 co-editors and all of their co-editors, resulting in 148 different co-editor pairs. Each node is one editor, and each time two people have co-edited a publication, a link between them is created. The more co-editorships a person accumulates, the larger the node. The more co-editorships two people share, the thicker the edge connecting them. For this visualization, the full data of collaborations for edited volumes and editions has been massively reduced. Different parameters may strongly affect the results. See the full coeditor data in the <code>data</code> folder for more details.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/coeditors_top2.svg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Network showing the top 20 co-editors and all of their co-editors, created using Gephi.</figcaption>
+</figure>
+</div>
+<p>This figure is available also as a <a href="https://raw.githubusercontent.com/christofs/bibliographie18/main/analysis/figures/coeditors_top2.svg">zoom-able image file</a> and <a href="https://raw.githubusercontent.com/christofs/bibliographie18/main/analysis/figures/coeditors_top1.svg">with somewhat friendlier colors but no community detection</a>.</p>
+<p>We basically see three key co-editor networks (the different colors are based on an algorithmic community or cluster detection):</p>
+<ul>
+<li>Porret, Rosset, Majeur, Farkas, Baczko et al.&nbsp;</li>
+<li>Sermain, Herman, Pelckmans, Escola, Omacini, Peeters, Paschoud, Berchtold et al.&nbsp;</li>
+<li>Leuwers, Bourdin, Biard, Simien, Serna, Antoine et al.&nbsp;</li>
+<li>Smaller clusters with Didier and Neefs as well around Kolving and Mortier.</li>
+</ul>
+<p>Some initial observations: While Porret appears to be the most productive co-editor overall, this is achived with some frequent, but also with a large number of less frequent coeditors. Inversely, the most intense collaboration appears to be between Herman and Pelckmans, who seem to avoid one-off collaborations. Finally, Rosset also functions as a bridge linking Porret and Baczko on the one hand, and Herman and Pelckmans on the other hand, and their respective coeditor networks. No similar bridge exists towards the Leuwers et al.&nbsp;network. The smaller Didier cluster is also connected to Sermain.</p>
+</section>
+<section id="analysis-of-the-titles" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-of-the-titles">Analysis of the titles</h2>
+<p>(TBD: Authors in titles; keywords in titles; the same, but over time.)</p>
+</section>
+<section id="developments-over-time" class="level2">
+<h2 class="anchored" data-anchor-id="developments-over-time">Developments over time</h2>
+<p>(Coming next. Most frequently mentioned authors over time. Co-authorship / co-editorship numbers over time. Languages over time.)</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

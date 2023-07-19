@@ -1,4 +1,4 @@
-ID;Source;Target;Weight
+;coeditor1;coeditor2;count
 1848;Herman;Pelckmans;221
 3896;Hasquin;Mortier;103
 2546;Ferreyrolles;Versini;84
@@ -19,14 +19,14 @@ ID;Source;Target;Weight
 360;Baczko;Majeur;56
 358;Baczko;Rosset;56
 357;Baczko;Porret;56
-364;Rosset;Farkas;56
-362;Porret;Farkas;56
+364;Rosset;la collaboration de Mirjana Farkas;56
+362;Porret;la collaboration de Mirjana Farkas;56
 363;Majeur;Porret;56
 365;Majeur;Rosset;56
-366;Majeur;Farkas;56
-359;Baczko;Farkas;56
-3053;Herman;Peeters;52
-3054;Pelckmans;Peeters;52
+366;Majeur;la collaboration de Mirjana Farkas;56
+359;Baczko;la collaboration de Mirjana Farkas;56
+3053;Herman;la collaboration de Kris Peeters;52
+3054;Pelckmans;la collaboration de Kris Peeters;52
 186;Bourdin;Leuwers;46
 3048;Pelckmans;Rosset;45
 3045;Herman;Rosset;45
@@ -39,7 +39,7 @@ ID;Source;Target;Weight
 3851;Minard;Porret;33
 3850;Milliot;Porret;33
 924;Blanckaert;Porret;32
-926;Porret;Brandli;32
+926;Porret;la collaboration de Fabrice Brandli;32
 3370;Herman;Kozul;29
 3371;Kozul;Pelckmans;29
 3366;Courcelle;Kölving;29
@@ -50,7 +50,7 @@ ID;Source;Target;Weight
 3352;Mortier;Moureau;23
 3350;Knabe;Mortier;23
 4166;Porret;Testori;23
-3055;Rosset;Peeters;23
+3055;Rosset;la collaboration de Kris Peeters;23
 3047;Paschoud;Rosset;22
 858;Bourdin;Serna;22
 3046;Paschoud;Pelckmans;22
@@ -68,7 +68,7 @@ ID;Source;Target;Weight
 1993;Dagen;Escola;16
 1995;Escola;Rueff;16
 1702;Denis;Porret;14
-1703;Porret;Milliot;14
+1703;Porret;la collaboration de Vincent Milliot;14
 847;Biard;Ducange;14
 729;Sermain;Vasak;13
 1127;Bourdin;Caron;13
@@ -78,7 +78,7 @@ ID;Source;Target;Weight
 849;Biard;Pasteur;11
 848;Biard;Gainot;11
 1494;Bouchet;Bourdin;10
-2233;Didier;Planchon;10
+2233;Didier;la collaboration de Cécile Planchon;10
 1493;Bogani;Bourdin;10
 2232;Didier;Hua;10
 5391;Kölving;Mervaud;10
@@ -132,12 +132,12 @@ ID;Source;Target;Weight
 3041;Hallyn;Herman;1
 3551;Leuwers;Salas;1
 3550;Leuwers;Martin;1
-3548;Leuwers;Bernet;1
+3548;Leuwers;la collaboration de Jacques Bernet;1
 3491;Le Roy Ladurie;Sermain;1
 3239;Hirsch;Leuwers;1
 3238;Deregnaucourt;Leuwers;1
 3362;Rosset;Zurbuchen;1
-3360;Rosset;Griener;1
+3360;Rosset;de Pascal Griener;1
 3358;Kobi;Rosset;1
 2239;Neefs;Rolet;1
 2238;Didier;Rolet;1
@@ -146,4 +146,4 @@ ID;Source;Target;Weight
 2018;Leuwers;Michel;1
 2016;Demars-Sion;Leuwers;1
 2014;Dauchy;Leuwers;1
-2547;Ferreyrolles;Azevedo;1
+2547;Ferreyrolles;de Azevedo;1
