@@ -13,12 +13,12 @@ website:
     left:
       - href: index.qmd
         text: About
+      - time.ipynb
+      - types.ipynb
       - people.ipynb
       - publishers.ipynb
       - languages.ipynb
-      - types.ipynb
       - collaborations.ipynb
-      - time.ipynb
 
 format:
   html:
