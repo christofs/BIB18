@@ -8,8 +8,13 @@ website:
     left:
       - href: index.qmd
         text: About
+      - authors.ipynb
+      - publishers.ipynb
+      - languages.ipynb
+      - types.ipynb
       - titles.ipynb
       - collaborations.ipynb
+      - time.ipynb
 
 format:
   html:

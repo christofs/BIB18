@@ -119,12 +119,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./authors.html" rel="" target="">
+ <span class="menu-text">Authors</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./publishers.html" rel="" target="">
+ <span class="menu-text">Publishers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./languages.html" rel="" target="">
+ <span class="menu-text">Languages</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./types.html" rel="" target="">
+ <span class="menu-text">Publication types</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./titles.html" rel="" target="">
  <span class="menu-text">Titles</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./collaborations.html" rel="" target="" aria-current="page">
  <span class="menu-text">Collaborations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./time.html" rel="" target="">
+ <span class="menu-text">Developments over time</span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
@@ -144,6 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#number-of-collaborators" id="toc-number-of-collaborators" class="nav-link active" data-scroll-target="#number-of-collaborators">Number of collaborators</a></li>
   <li><a href="#collaborator-networks" id="toc-collaborator-networks" class="nav-link" data-scroll-target="#collaborator-networks">Collaborator networks</a></li>
+  <li><a href="#prevalence-of-collaboration-in-the-dataset" id="toc-prevalence-of-collaboration-in-the-dataset" class="nav-link" data-scroll-target="#prevalence-of-collaboration-in-the-dataset">Prevalence of collaboration in the dataset</a></li>
   <li><a href="#co-editor-networks" id="toc-co-editor-networks" class="nav-link" data-scroll-target="#co-editor-networks">Co-editor networks</a></li>
   </ul>
 </nav>
@@ -288,7 +309,7 @@ Counter({1: 53488, 2: 3361, 3: 9, 4: 2})
 <section id="collaborator-networks" class="level2">
 <h2 class="anchored" data-anchor-id="collaborator-networks">Collaborator networks</h2>
 <p>Builds the data for a network of people having collaborated as editors.</p>
-<div class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="20">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>coeditorcounts_top_file <span class="op">=</span> join(wdir, <span class="st">"results"</span>, <span class="st">"coeditor-counts_top.csv"</span>)</span>
@@ -389,6 +410,26 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </section>
+<section id="prevalence-of-collaboration-in-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="prevalence-of-collaboration-in-the-dataset">Prevalence of collaboration in the dataset</h2>
+<p>There are 56860 publications in the bibliography that have an author role (for instance monographs, journal articles and book chapters). Shown here is the number of authors in each of these publications. Single authorship is the norm, dual authorship is not uncommon, anything beyond this is exceedingly rare.</p>
+<ul>
+<li>1 author: 53488 (94.1%)</li>
+<li>2 authors: 3361 (5.9%)</li>
+<li>3 authors: 9 (0.02 %)</li>
+<li>4 authors: 2 (0.004%)</li>
+</ul>
+<p>There are 17135 publications in the bibliography that have an editor role (for instance edited volumes, proceedings, special issues, textual editions, etc.). Shown here is the number of editors in each of these publications. Dual editorship is the most common case, but single editorship and triple editorship are also very common. Higher numbers of editors are rarer.</p>
+<ul>
+<li>1 editor: 5558 (32.4%)</li>
+<li>2 editors: 7743 (45.2%)</li>
+<li>3 editors: 2638 (15.4%)</li>
+<li>4 editors: 904 (5.3%)</li>
+<li>5 editors: 256 (1.5%)</li>
+<li>6 editors: 35 (0.2%)</li>
+<li>11 (!) editors: (0.01%)</li>
+</ul>
+</section>
 <section id="co-editor-networks" class="level2">
 <h2 class="anchored" data-anchor-id="co-editor-networks">Co-editor networks</h2>
 <p>As shown above, editorship is an area of particularly intense collaboration in the community of Dix-huitiémistes, based on the data in the bibliography. The following is an initial, experimental attempt to elucidate the data using network visualization.</p>
@@ -399,7 +440,7 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 <figcaption class="figure-caption">Network showing the top 20 co-editors and all of their co-editors, created using Gephi.</figcaption>
 </figure>
 </div>
-<p>This figure is available also as a <a href="https://raw.githubusercontent.com/christofs/bibliographie18/main/analysis/figures/coeditors_top2.svg">zoom-able image file</a> and <a href="https://raw.githubusercontent.com/christofs/bibliographie18/main/analysis/figures/coeditors_top1.svg">with somewhat friendlier colors but no community detection</a>.</p>
+<p>This figure is available also as a <a href="./figures/coeditors_top2.svg">zoom-able image file</a> and <a href="./figures/coeditors_top1.svg">with somewhat friendlier colors but no community detection</a>.</p>
 <p>We basically see three key co-editor networks (the different colors are based on an algorithmic community or cluster detection):</p>
 <ul>
 <li>Porret, Rosset, Majeur, Farkas, Baczko et al.&nbsp;</li>

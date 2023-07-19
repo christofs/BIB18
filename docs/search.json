@@ -243,5 +243,89 @@
     "title": "Collaborations",
     "section": "Co-editor networks",
     "text": "Co-editor networks\nAs shown above, editorship is an area of particularly intense collaboration in the community of Dix-huitiémistes, based on the data in the bibliography. The following is an initial, experimental attempt to elucidate the data using network visualization.\nThe following shows a network of the top 20 co-editors and all of their co-editors, resulting in 148 different co-editor pairs. Each node is one editor, and each time two people have co-edited a publication, a link between them is created. The more co-editorships a person accumulates, the larger the node. The more co-editorships two people share, the thicker the edge connecting them. For this visualization, the full data of collaborations for edited volumes and editions has been massively reduced. Different parameters may strongly affect the results. See the full coeditor data in the data folder for more details.\n\n\n\nNetwork showing the top 20 co-editors and all of their co-editors, created using Gephi.\n\n\nThis figure is available also as a zoom-able image file and with somewhat friendlier colors but no community detection.\nWe basically see three key co-editor networks (the different colors are based on an algorithmic community or cluster detection):\n\nPorret, Rosset, Majeur, Farkas, Baczko et al. \nSermain, Herman, Pelckmans, Escola, Omacini, Peeters, Paschoud, Berchtold et al. \nLeuwers, Bourdin, Biard, Simien, Serna, Antoine et al. \nSmaller clusters with Didier and Neefs as well around Kolving and Mortier.\n\nSome initial observations: While Porret appears to be the most productive co-editor overall, this is achived with some frequent, but also with a large number of less frequent coeditors. Inversely, the most intense collaboration appears to be between Herman and Pelckmans, who seem to avoid one-off collaborations. Finally, Rosset also functions as a bridge linking Porret and Baczko on the one hand, and Herman and Pelckmans on the other hand, and their respective coeditor networks. No similar bridge exists towards the Leuwers et al. network. The smaller Didier cluster is also connected to Sermain."
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "BIB18",
+    "section": "Overview",
+    "text": "Overview\nSome analyses of the dataset are available on the present website. The scripts to create the analyses and generate the website pages is also available at github.com/christofs/BIB18. The analyses are based on the RDF version of the data (currently, v0.1.0, May 20, 2023) and have been performed by Christof Schöch. Note that all numbers can be expected to shift slighly as the process of cleaning the data proceeds. Collaborative authorship / editorship as well as the publication types will most likely be most affected by corrections.\nSource of the data: Benoît Melançon, for background information see mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html and for the Dataverse deposit, see doi.org/10.5683/SP3/PYYEEH.\nFor more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see: github.com/christofs/BIB18. The transformation was performed in May 2023.\nThe full bibliography can also be consulted on Zotero, see: zotero.org/groups/5067408/BIB18."
+  },
+  {
+    "objectID": "time.html",
+    "href": "time.html",
+    "title": "Developments over time",
+    "section": "",
+    "text": "(Coming next. Most frequently mentioned authors over time. Co-authorship / co-editorship numbers over time. Languages over time.)"
+  },
+  {
+    "objectID": "time.html#distribution-of-publications-per-year",
+    "href": "time.html#distribution-of-publications-per-year",
+    "title": "Developments over time",
+    "section": "Distribution of publications per year",
+    "text": "Distribution of publications per year\nThe dataset contains 64169 publication years, with 87 different publication years recorded (some of them are errors). Here, only data starting in 1986 is shown (the bibliography was launched in 1992)."
+  },
+  {
+    "objectID": "authors.html",
+    "href": "authors.html",
+    "title": "Authors",
+    "section": "",
+    "text": "There are 94321 mentions of person names in the dataset, in total, for 31026 different person names.\nThe person names occurring most frequently in the dataset, irrespective of context or function, are the following, with the number of occurrence of their names:\n\nPorret, Michel: 439\nBerchtold, Jacques: 388\nDelon, Michel: 383\nVoltaire: 346\nSeth, Catriona: 306\nHerman, Jan: 280\nPelckmans, Paul: 267\nMoureau, François: 255\nSermain, Jean-Paul: 240\nBourdin, Philippe: 235"
+  },
+  {
+    "objectID": "authors.html#most-frequently-occurring-person-names",
+    "href": "authors.html#most-frequently-occurring-person-names",
+    "title": "Authors",
+    "section": "",
+    "text": "There are 94321 mentions of person names in the dataset, in total, for 31026 different person names.\nThe person names occurring most frequently in the dataset, irrespective of context or function, are the following, with the number of occurrence of their names:\n\nPorret, Michel: 439\nBerchtold, Jacques: 388\nDelon, Michel: 383\nVoltaire: 346\nSeth, Catriona: 306\nHerman, Jan: 280\nPelckmans, Paul: 267\nMoureau, François: 255\nSermain, Jean-Paul: 240\nBourdin, Philippe: 235"
+  },
+  {
+    "objectID": "collaborations.html#prevalence-of-collaboration-in-the-dataset",
+    "href": "collaborations.html#prevalence-of-collaboration-in-the-dataset",
+    "title": "Collaborations",
+    "section": "Prevalence of collaboration in the dataset",
+    "text": "Prevalence of collaboration in the dataset\nThere are 56860 publications in the bibliography that have an author role (for instance monographs, journal articles and book chapters). Shown here is the number of authors in each of these publications. Single authorship is the norm, dual authorship is not uncommon, anything beyond this is exceedingly rare.\n\n1 author: 53488 (94.1%)\n2 authors: 3361 (5.9%)\n3 authors: 9 (0.02 %)\n4 authors: 2 (0.004%)\n\nThere are 17135 publications in the bibliography that have an editor role (for instance edited volumes, proceedings, special issues, textual editions, etc.). Shown here is the number of editors in each of these publications. Dual editorship is the most common case, but single editorship and triple editorship are also very common. Higher numbers of editors are rarer.\n\n1 editor: 5558 (32.4%)\n2 editors: 7743 (45.2%)\n3 editors: 2638 (15.4%)\n4 editors: 904 (5.3%)\n5 editors: 256 (1.5%)\n6 editors: 35 (0.2%)\n11 (!) editors: (0.01%)"
+  },
+  {
+    "objectID": "types.html",
+    "href": "types.html",
+    "title": "Publication types",
+    "section": "",
+    "text": "There are 64397 instances of publication type (each entry has one), with just 6 different types of publication types. This number results from the original bibliography’s data model, but the labels used below are Zotero’s labels. The exception to this rule is that the distinction between monographs and edited volumes is lost in Zotero, which considers both to be books.\n\njournalArticle: 26615\nbook (monographs and edited volumes): 23083\nbookSection: 13368\nthesis: 1296\ndataset: 34\nwebpage: 1\n\n(Visualize as a bubble chart?)"
+  },
+  {
+    "objectID": "types.html#distribution-of-publication-types-in-the-dataset",
+    "href": "types.html#distribution-of-publication-types-in-the-dataset",
+    "title": "Publication types",
+    "section": "",
+    "text": "There are 64397 instances of publication type (each entry has one), with just 6 different types of publication types. This number results from the original bibliography’s data model, but the labels used below are Zotero’s labels. The exception to this rule is that the distinction between monographs and edited volumes is lost in Zotero, which considers both to be books.\n\njournalArticle: 26615\nbook (monographs and edited volumes): 23083\nbookSection: 13368\nthesis: 1296\ndataset: 34\nwebpage: 1\n\n(Visualize as a bubble chart?)"
+  },
+  {
+    "objectID": "publishers.html",
+    "href": "publishers.html",
+    "title": "Publishers",
+    "section": "",
+    "text": "There are 37781 mentions of publisher names in the dataset, in total, for 5705 different publisher names.\nThe publisher names occurring most frequently in the dataset, irrespective of context or function, are the following, with the number of occurrence of their names:\n\nClassiques Garnier: 2354\nHonoré Champion: 1349\nPresses universitaires de Rennes: 1306\nPeter Lang: 706\nL’Harmattan: 691\nVoltaire Foundation: 682\nDroz: 552\nPresses universitaires de France: 540\nGallimard: 523\nCambridge University Press: 459"
+  },
+  {
+    "objectID": "publishers.html#most-frequently-occurring-publisher-names",
+    "href": "publishers.html#most-frequently-occurring-publisher-names",
+    "title": "Publishers",
+    "section": "",
+    "text": "There are 37781 mentions of publisher names in the dataset, in total, for 5705 different publisher names.\nThe publisher names occurring most frequently in the dataset, irrespective of context or function, are the following, with the number of occurrence of their names:\n\nClassiques Garnier: 2354\nHonoré Champion: 1349\nPresses universitaires de Rennes: 1306\nPeter Lang: 706\nL’Harmattan: 691\nVoltaire Foundation: 682\nDroz: 552\nPresses universitaires de France: 540\nGallimard: 523\nCambridge University Press: 459"
+  },
+  {
+    "objectID": "languages.html",
+    "href": "languages.html",
+    "title": "Languages",
+    "section": "",
+    "text": "There are 64396 instances of the language element in the dataset. For the moment, only 8 different languages have been identified, although there are no doubt more languages represented in the dataset. (These will be added with further refinement of the data.)\n\nFew surprises in the major languages so far: French reigns supreme, before English, with Italian, German and Spanish quite a bit behind."
+  },
+  {
+    "objectID": "languages.html#distribution-of-languages-in-the-dataset",
+    "href": "languages.html#distribution-of-languages-in-the-dataset",
+    "title": "Languages",
+    "section": "",
+    "text": "There are 64396 instances of the language element in the dataset. For the moment, only 8 different languages have been identified, although there are no doubt more languages represented in the dataset. (These will be added with further refinement of the data.)\n\nFew surprises in the major languages so far: French reigns supreme, before English, with Italian, German and Spanish quite a bit behind."
   }
 ]

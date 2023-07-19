@@ -1,5 +1,0 @@
----
-title: "About"
----
-
-Website containing analyses of the Bibliographie18 Dataset, by Christof Schöch. 
