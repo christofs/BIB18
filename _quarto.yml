@@ -6,15 +6,15 @@ website:
   title: "BIB18"
   navbar:
     left:
-      - href: source/index.qmd
-        text: Home
-      - source/titles.ipynb
-      - source/collaborations.ipynb
+      - href: index.qmd
+        text: About
+      - titles.ipynb
+      - collaborations.ipynb
 
 format:
   html:
     theme: cosmo
-    css: source/styles.css
+    css: styles.css
     toc: true
     code-fold: true
     code-summary: "Code"
