@@ -3,7 +3,7 @@
 ## Folders in this repository 
 
 * `archive`: Legacy data and scripts for initial transformation.  
-* `data`: The data of the *Bibliographie*. 
-* `docs`: Static pages rendered by Quarto. 
+* `data`: The data of the *Bibliographie* in several formats. 
+* `docs`: Static pages rendered by Quarto for the website. 
 * `figures`: Figures generated as part of the analysis. 
-* `source`: Markdown files for text pages and Jupyter notebooks for analysis scripts and texts. 
+* `source`: Markdown files and Jupyter notebooks with scripts and texts. 
