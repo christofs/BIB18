@@ -188,9 +188,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="distribution-of-publications-per-year" class="level2">
 <h2 class="anchored" data-anchor-id="distribution-of-publications-per-year">Distribution of publications per year</h2>
-<p>The dataset contains 64169 publication years, with 87 different publication years recorded (some of them are errors). Here, only data starting in 1986 is shown (the bibliography was launched in 1992).</p>
-<p><img src="./figures/pubyear_counts.png" class="img-fluid"></p>
-<div class="cell" data-execution_count="1">
+<p>Here, only data starting in 1986 is shown (the bibliography was launched in 1992).</p>
+<div class="cell" data-execution_count="6">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === Imports === </span></span>
@@ -230,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>bibdata <span class="op">=</span> read_xml(bibdatafile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="11">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
@@ -265,14 +264,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize_pubyears(pubyear_counts):</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> sns.barplot(data <span class="op">=</span> pubyear_counts, x<span class="op">=</span><span class="st">"year"</span>, y<span class="op">=</span><span class="st">"count"</span>)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    fig.set_xticklabels(fig.get_xticklabels(), rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    plt.savefig(join(wdir, <span class="st">"figures"</span>, <span class="st">"pubyear_counts.png"</span>))</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>pubyear_counts <span class="op">=</span> get_pubyears(bibdata)</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>visualize_pubyears(pubyear_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">8</span>))</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    pal <span class="op">=</span> sns.color_palette(<span class="st">"colorblind"</span>, <span class="bu">len</span>(pubyear_counts))</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> sns.barplot(</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> pubyear_counts, </span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"year"</span>, </span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">"count"</span>,</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        palette <span class="op">=</span> pal,</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    fig.set_xticklabels(fig.get_xticklabels(), rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    plt.savefig(join(wdir, <span class="st">"figures"</span>, <span class="st">"pubyear_counts.png"</span>), dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>pubyear_counts <span class="op">=</span> get_pubyears(bibdata)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>visualize_pubyears(pubyear_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 64169 instances of publication years mentioned in the dataset.
@@ -282,7 +287,6 @@ There are 38 different years mentioned in the dataset.</code></pre>
 <p><img src="time_files/figure-html/cell-3-output-2.png" class="img-fluid"></p>
 </div>
 </div>
-<p>Here, only data starting in 1986 is shown (the bibliography was launched in 1992).</p>
 
 
 </section>
