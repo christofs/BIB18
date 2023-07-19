@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BIB18 - Authors</title>
+<title>BIB18 - People</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,10 +118,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./index.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./authors.html" rel="" target="" aria-current="page">
- <span class="menu-text">Authors</span></a>
-  </li>  
+  <li class="dropdown-header">
+ <span class="menu-text">authors.ipynb</span></li>
   <li class="nav-item">
     <a class="nav-link" href="./publishers.html" rel="" target="">
  <span class="menu-text">Publishers</span></a>
@@ -172,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Authors</h1>
+<h1 class="title">People</h1>
 </div>
 
 
@@ -189,21 +187,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="most-frequently-occurring-person-names" class="level2">
 <h2 class="anchored" data-anchor-id="most-frequently-occurring-person-names">Most frequently occurring person names</h2>
-<p>There are 94321 mentions of person names in the dataset, in total, for 31026 different person names.</p>
-<p>The person names occurring most frequently in the dataset, irrespective of context or function, are the following, with the number of occurrence of their names:</p>
-<ul>
-<li>Porret, Michel: 439</li>
-<li>Berchtold, Jacques: 388</li>
-<li>Delon, Michel: 383</li>
-<li>Voltaire: 346</li>
-<li>Seth, Catriona: 306</li>
-<li>Herman, Jan: 280</li>
-<li>Pelckmans, Paul: 267</li>
-<li>Moureau, François: 255</li>
-<li>Sermain, Jean-Paul: 240</li>
-<li>Bourdin, Philippe: 235</li>
-</ul>
-<div class="cell" data-execution_count="1">
+<p>This page provides information about person names, i.e.&nbsp;authors and editors.</p>
+<div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === Imports === </span></span>
@@ -243,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>bibdata <span class="op">=</span> read_json(bibdatafile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="7">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_personnames(bibdata): </span>
@@ -262,20 +247,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> <span class="bu">len</span>(item) <span class="op">==</span> <span class="dv">2</span>: </span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            personname <span class="op">=</span> item[<span class="dv">0</span>].text <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> item[<span class="dv">1</span>].text </span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            personnames.append(personname)    </span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> personnames</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">global</span> personnames</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>personnames  <span class="op">=</span> get_personnames(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"There are "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(Counter(personnames))) <span class="op">+</span> <span class="st">" different person names in the dataset."</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> personnames</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">global</span> personnames</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>personnames  <span class="op">=</span> get_personnames(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>There are 94321 instances of the Element 'person' in the dataset.</code></pre>
+<pre><code>There are 94321 instances of the Element 'person' in the dataset.
+There are 31026 different person names in the dataset.</code></pre>
 </div>
 </div>
 </section>
 <section id="visualization-of-the-most-frequent-person-names" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-of-the-most-frequent-person-names">Visualization of the most frequent person names</h2>
 <p>These persons could be authors or editors of publications.</p>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="4">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> most_frequent_persons(personnames):</span>
@@ -320,8 +307,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>personnames_counts <span class="op">=</span> most_frequent_persons(personnames)</span>
 <span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>visualize_personnames_counts(personnames_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>There are 31026 different person names in the dataset.</code></pre>
+</div>
 <div class="cell-output cell-output-display">
-<p><img src="authors_files/figure-html/cell-4-output-1.png" class="img-fluid"></p>
+<p><img src="people_files/figure-html/cell-4-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 
