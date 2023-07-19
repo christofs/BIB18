@@ -20,4 +20,4 @@ Benoît Melançon specifies: "Quiconque souhaite s’approprier ces données peu
 
 ## Citation suggestion 
 
-Christof Schöch. *BIB18 – Curation and Analysis of the dataset derived from the XVIIIe: Bibliographie*, v0.3.0. Github.com, 2023. DOI: [10.5281/zenodo.8166110](https://doi.org/10.5281/zenodo.8166110). 
+Christof Schöch. *BIB18 – Curation and Analysis of the dataset derived from the XVIIIe: Bibliographie*, v0.3.0. Github.com, 2023. URL: [https://christofs.github.io/BIB18/](https://christofs.github.io/BIB18/), DOI: [10.5281/zenodo.8166110](https://doi.org/10.5281/zenodo.8166110). 
