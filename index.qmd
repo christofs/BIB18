@@ -4,4 +4,16 @@ title: "bib18"
 
 Website containing analyses of the Bibliographie18 Dataset. 
 
-For more information on the dataset, see: https://github.com/christofs/bibliographie18. 
+## Orientation 
+
+Source of the data: Benoît Melançon, for background information see http://mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html and for the Dataverse deposit, see https://doi.org/10.5683/SP3/PYYEEH. 
+
+For more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see: https://github.com/christofs/bibliographie18. The transformation was performed in May 2023. 
+
+The resulting bibliography can be consulted on Zotero, see: https://www.zotero.org/groups/5067408/bibliographie18.
+
+Some analyses of the dataset are available on the present website. 
+
+## Nota bene
+
+Benoît Melançon specifies: "Quiconque souhaite s’approprier ces données peut le faire, sous deux conditions. 1. L’attribution de la collecte des données doit toujours être rappelée, par exemple sous la forme «Données colligées par Benoît Melançon». 2. Aucune exploitation commerciale de ces données n’est tolérée. Elles ne peuvent pas être vendues sous quelque forme que ce soit. Autrement dit, chez Creative Commons : Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) — https://creativecommons.org/licenses/by-nc/4.0/."
