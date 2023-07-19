@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BIB18 - Titles</title>
+<title>BIB18 - Introduction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -122,12 +122,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./authors.html" rel="" target="">
+ <span class="menu-text">Authors</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./publishers.html" rel="" target="">
+ <span class="menu-text">Publishers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./languages.html" rel="" target="">
+ <span class="menu-text">Languages</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./types.html" rel="" target="">
+ <span class="menu-text">Publication types</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link active" href="./titles.html" rel="" target="" aria-current="page">
- <span class="menu-text">Titles</span></a>
+ <span class="menu-text">Introduction</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./collaborations.html" rel="" target="">
  <span class="menu-text">Collaborations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./time.html" rel="" target="">
+ <span class="menu-text">Developments over time</span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
@@ -145,8 +165,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#extracting-the-titles" id="toc-extracting-the-titles" class="nav-link" data-scroll-target="#extracting-the-titles">Extracting the titles</a></li>
+  <li><a href="#extracting-the-titles" id="toc-extracting-the-titles" class="nav-link active" data-scroll-target="#extracting-the-titles">Extracting the titles</a></li>
   <li><a href="#distribution-of-languages-based-on-the-titles" id="toc-distribution-of-languages-based-on-the-titles" class="nav-link" data-scroll-target="#distribution-of-languages-based-on-the-titles">Distribution of languages, based on the titles</a></li>
   </ul>
 </nav>
@@ -156,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Titles</h1>
+<h1 class="title">Introduction</h1>
 </div>
 
 
@@ -171,8 +190,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>The titles included in the bibliography tell us a few things, for instance the language a publication is written in or the main themes (keywords, authors) that is the subject of a publication. Let’s find out about them. (The code below initializes the analyis.)</p>
 <div class="cell" data-execution_count="1">
 <details>
@@ -224,7 +241,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
 <section id="extracting-the-titles" class="level2">
 <h2 class="anchored" data-anchor-id="extracting-the-titles">Extracting the titles</h2>
 <p>The first step is to identify the titles in the dataset. Ideally, we would exclude titles of journals, for instance, but this is not done here yet.</p>
