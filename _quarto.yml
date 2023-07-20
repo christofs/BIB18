@@ -5,7 +5,6 @@ project:
     - "*.qmd"
     - "*.ipynb"
     - "!readme.md"
-    - "!titles.ipynb"
 
 website:
   title: "BIB18"
@@ -17,6 +16,7 @@ website:
       - types.ipynb
       - people.ipynb
       - publishers.ipynb
+      - titles.ipynb
       - languages.ipynb
       - collaborations.ipynb
 
