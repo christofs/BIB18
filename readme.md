@@ -10,3 +10,5 @@
 * `figures`: Figures generated as part of the analysis. 
 * `results`: Various data summaries created from the full dataset. 
 * `source`: Markdown files and Jupyter notebooks with scripts and texts. 
+
+## Website: [christofs.github.io/BIB18/](https://christofs.github.io/BIB18/)
