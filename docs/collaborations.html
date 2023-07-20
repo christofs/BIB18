@@ -205,88 +205,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> Counter</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># === Namespaces === </span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>namespaces <span class="op">=</span> {</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"foaf"</span> : <span class="st">"http://xmlns.com/foaf/0.1/"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bib"</span> : <span class="st">"http://purl.org/net/biblio#"</span>,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dc"</span> : <span class="st">"http://purl.org/dc/elements/1.1/"</span>,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"z"</span> : <span class="st">"http://www.zotero.org/namespaces/export#"</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rdf"</span> : <span class="st">"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># === Files and parameters === </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># === Namespaces === </span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>namespaces <span class="op">=</span> {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"foaf"</span> : <span class="st">"http://xmlns.com/foaf/0.1/"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bib"</span> : <span class="st">"http://purl.org/net/biblio#"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dc"</span> : <span class="st">"http://purl.org/dc/elements/1.1/"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"z"</span> : <span class="st">"http://www.zotero.org/namespaces/export#"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"rdf"</span> : <span class="st">"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>wdir <span class="op">=</span> join(<span class="st">"/"</span>, <span class="st">"media"</span>, <span class="st">"christof"</span>, <span class="st">"Data"</span>, <span class="st">"Github"</span>, <span class="st">"christofs"</span>, <span class="st">"BIB18"</span>)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>bibdatafile <span class="op">=</span> join(wdir, <span class="st">"data"</span>, <span class="st">"BIB18_Zotero-RDF.rdf"</span>) </span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#bibdatafile = join(wdir, "data", "BIB18_Zotero-RDF_TEST.rdf") </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<div class="cell" data-execution_count="2">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_xml(bibdatafile): </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    bibdata <span class="op">=</span> etree.parse(bibdatafile)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bibdata</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>bibdata <span class="op">=</span> read_xml(bibdatafile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># === Files and parameters === </span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>wdir <span class="op">=</span> join(<span class="st">"/"</span>, <span class="st">"media"</span>, <span class="st">"christof"</span>, <span class="st">"Data"</span>, <span class="st">"Github"</span>, <span class="st">"christofs"</span>, <span class="st">"BIB18"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>bibdatafile <span class="op">=</span> join(wdir, <span class="st">"data"</span>, <span class="st">"BIB18_Zotero-RDF.rdf"</span>) </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="co">#bibdatafile = join(wdir, "data", "BIB18_Zotero-RDF_TEST.rdf") </span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># === Load the dataset === </span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_xml(bibdatafile): </span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    bibdata <span class="op">=</span> etree.parse(bibdatafile)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bibdata</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>bibdata <span class="op">=</span> read_xml(bibdatafile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="number-of-collaborators" class="level2">
 <h2 class="anchored" data-anchor-id="number-of-collaborators">Number of collaborators</h2>
 <p>This part determines how frequent collaborations (co-authorship, co-editorship) are. This is based on the number of “Person” elements within the “authors” or “editors” element.</p>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="2">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_number_collaborators(bibdata): </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Finds out how frequent collaborations (co-authorship, co-editorship) are.</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Number of "Person" elements within "authors" or "editors" element. </span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of collaborations with specific number of collaborators."</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find all instances of authors</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    num_coauthors <span class="op">=</span> []</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    xpath <span class="op">=</span> <span class="st">"//bib:authors"</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    authors <span class="op">=</span> bibdata.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(authors), <span class="st">"instances of Element 'authors'"</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    num_coauthors <span class="op">=</span> []</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> authors:</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(item)</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">"rdf:Seq/rdf:li/foaf:Person"</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        coauthors <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        num_coauthors.append(<span class="bu">len</span>(coauthors))</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    num_coauthors_counts <span class="op">=</span> Counter(num_coauthors)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num_coauthors_counts)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate percentages</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    num_coauthors_perc <span class="op">=</span> {}</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">sum</span>(num_coauthors_counts.values())</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key,val <span class="kw">in</span> num_coauthors_counts.items():</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        num_coauthors_perc[key] <span class="op">=</span> <span class="bu">str</span>(<span class="bu">round</span>(val<span class="op">/</span>total <span class="op">*</span> <span class="dv">100</span>, <span class="dv">3</span>)) <span class="op">+</span> <span class="st">'%'</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num_coauthors_perc)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find all instances of editors</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    num_coeditors <span class="op">=</span> []</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    xpath <span class="op">=</span> <span class="st">"//bib:editors"</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    editors <span class="op">=</span> bibdata.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(editors), <span class="st">"instances of Element 'editors'"</span>)</span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    num_coeditors <span class="op">=</span> []</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> editors:</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">"rdf:Seq/rdf:li/foaf:Person"</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        coeditors <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        num_coeditors.append(<span class="bu">len</span>(coeditors))</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    num_coeditors_counts <span class="op">=</span> Counter(num_coeditors)</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">dict</span>(num_coeditors_counts))</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate percentages</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    num_coeditors_perc <span class="op">=</span> {}</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">sum</span>(num_coeditors_counts.values())</span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key,val <span class="kw">in</span> num_coeditors_counts.items():</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        num_coeditors_perc[key] <span class="op">=</span> <span class="bu">str</span>(<span class="bu">round</span>(val<span class="op">/</span>total <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">'%'</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num_coeditors_perc)</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>get_number_collaborators(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_number_collaborators(bibdata): </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Finds out how frequent collaborations (co-authorship, co-editorship) are.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Number of "Person" elements within "authors" or "editors" element. </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of collaborations with specific number of collaborators."</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find all instances of authors</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    num_coauthors <span class="op">=</span> []</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    xpath <span class="op">=</span> <span class="st">"//bib:authors"</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    authors <span class="op">=</span> bibdata.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(authors), <span class="st">"instances of Element 'authors'"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    num_coauthors <span class="op">=</span> []</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> authors:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(item)</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">"rdf:Seq/rdf:li/foaf:Person"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        coauthors <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        num_coauthors.append(<span class="bu">len</span>(coauthors))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    num_coauthors_counts <span class="op">=</span> Counter(num_coauthors)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num_coauthors_counts)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate percentages</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    num_coauthors_perc <span class="op">=</span> {}</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">sum</span>(num_coauthors_counts.values())</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key,val <span class="kw">in</span> num_coauthors_counts.items():</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        num_coauthors_perc[key] <span class="op">=</span> <span class="bu">str</span>(<span class="bu">round</span>(val<span class="op">/</span>total <span class="op">*</span> <span class="dv">100</span>, <span class="dv">3</span>)) <span class="op">+</span> <span class="st">'%'</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num_coauthors_perc)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find all instances of editors</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    num_coeditors <span class="op">=</span> []</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    xpath <span class="op">=</span> <span class="st">"//bib:editors"</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    editors <span class="op">=</span> bibdata.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(editors), <span class="st">"instances of Element 'editors'"</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    num_coeditors <span class="op">=</span> []</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> editors:</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">"rdf:Seq/rdf:li/foaf:Person"</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        coeditors <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        num_coeditors.append(<span class="bu">len</span>(coeditors))</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    num_coeditors_counts <span class="op">=</span> Counter(num_coeditors)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">dict</span>(num_coeditors_counts))</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate percentages</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    num_coeditors_perc <span class="op">=</span> {}</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">sum</span>(num_coeditors_counts.values())</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> key,val <span class="kw">in</span> num_coeditors_counts.items():</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>        num_coeditors_perc[key] <span class="op">=</span> <span class="bu">str</span>(<span class="bu">round</span>(val<span class="op">/</span>total <span class="op">*</span> <span class="dv">100</span>, <span class="dv">2</span>)) <span class="op">+</span> <span class="st">'%'</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(num_coeditors_perc)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>get_number_collaborators(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -306,75 +307,75 @@ Counter({1: 53488, 2: 3361, 3: 9, 4: 2})
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>coeditorcounts_top_file <span class="op">=</span> join(wdir, <span class="st">"results"</span>, <span class="st">"coeditor-counts_top.csv"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>coeditorcounts_full_file <span class="op">=</span> join(wdir, <span class="st">"results"</span>, <span class="st">"coeditor-counts_full.csv"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> network_coeditors(bibdata): </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Builds the data for a network of people having collaborated as editors. </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find all instances of editors</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    xpath <span class="op">=</span> <span class="st">"//bib:editors"</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    editors <span class="op">=</span> bibdata.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"There are "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(editors)) <span class="op">+</span> <span class="st">" editors (i.e., instances of Element 'editors')."</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Collect the names of each person within each editors element</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> []</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> editors:</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">"rdf:Seq/rdf:li/foaf:Person"</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        coeditors_elements <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        coeditors_names <span class="op">=</span> []</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the names (full name or first name, last name) from each person</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> item <span class="kw">in</span> coeditors_elements: </span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(item) <span class="op">==</span> <span class="dv">2</span>: </span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>                coeditors_names.append(item[<span class="dv">0</span>].text <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> item[<span class="dv">1</span>].text)</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>        coeditors.append(coeditors_names)</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Establish the count of each collaboration between editors</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> itertools </span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    all_coeditor_combinations <span class="op">=</span> []</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> coeditors: </span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        coeditor_combinations <span class="op">=</span> <span class="bu">list</span>(itertools.combinations(item, <span class="dv">2</span>))</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        coeditor_combinations <span class="op">=</span> [<span class="bu">tuple</span>(<span class="bu">sorted</span>(item)) <span class="cf">for</span> item <span class="kw">in</span> coeditor_combinations]</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> coedcomb <span class="kw">in</span> coeditor_combinations: </span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            all_coeditor_combinations.append(coedcomb)</span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> <span class="bu">dict</span>(Counter(all_coeditor_combinations)) <span class="co"># ccc = coeditor_combinations_count</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Transform to a DataFrame</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> pd.DataFrame.from_dict(ccc, orient<span class="op">=</span><span class="st">"index"</span>, columns<span class="op">=</span>[<span class="st">"count"</span>])</span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.reset_index()</span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    ccc_split <span class="op">=</span> pd.DataFrame(ccc[<span class="st">"index"</span>].tolist())</span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    ccc_merged <span class="op">=</span> ccc_split.merge(ccc, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc_merged.drop([<span class="st">"index"</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.rename({<span class="dv">0</span> : <span class="st">"coeditor1"</span>, <span class="dv">1</span> : <span class="st">"coeditor2"</span>}, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.sort_values(by<span class="op">=</span><span class="st">"count"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc.head())</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc.shape, "shape of dataframe")</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_full_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>        ccc.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter the DataFrame to make it manageable for visualization</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Determine the top N most frequent co-editors</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    coeditors_top <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(<span class="bu">list</span>(ccc.head(<span class="dv">20</span>).loc[:,<span class="st">"coeditor1"</span>]) <span class="op">+\</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>        <span class="bu">list</span>(ccc.head(<span class="dv">20</span>).loc[:,<span class="st">"coeditor2"</span>])))</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(coeditors_top)</span></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Among all editors, "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(coeditors_top)) <span class="op">+</span> <span class="st">" have been selected as the most active co-editors."</span>)</span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter the DataFrame to include just the collaborations involving at least one of the top co-editors. </span></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The resulting DataFrame will have all collaborations between the top co-editors and their co-editors. </span></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>    ccc_filtered <span class="op">=</span> ccc[(ccc[<span class="st">"coeditor1"</span>].isin(coeditors_top)) <span class="op">|\</span></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>                       (ccc[<span class="st">"coeditor2"</span>].isin(coeditors_top))]</span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc_filtered.shape, "shape of dataframe of top co-editors and their co-editors.")</span></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simplify the labels </span></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ccc_filtered = ccc_filtered.replace(' .*?]', '',regex=True).astype(str)</span></span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor1'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor1'</span>]]</span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor2'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor2'</span>]]</span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The following table shows the 5 most active pairs of editors.</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ccc_filtered.head())</span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_top_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>        ccc_filtered.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>network_coeditors(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>coeditorcounts_top_file <span class="op">=</span> join(wdir, <span class="st">"results"</span>, <span class="st">"coeditor-counts_top.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>coeditorcounts_full_file <span class="op">=</span> join(wdir, <span class="st">"results"</span>, <span class="st">"coeditor-counts_full.csv"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> network_coeditors(bibdata): </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Builds the data for a network of people having collaborated as editors. </span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find all instances of editors</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    xpath <span class="op">=</span> <span class="st">"//bib:editors"</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    editors <span class="op">=</span> bibdata.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"There are "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(editors)) <span class="op">+</span> <span class="st">" editors (i.e., instances of Element 'editors')."</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Collect the names of each person within each editors element</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> []</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> editors:</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">"rdf:Seq/rdf:li/foaf:Person"</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        coeditors_elements <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        coeditors_names <span class="op">=</span> []</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the names (full name or first name, last name) from each person</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> item <span class="kw">in</span> coeditors_elements: </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(item) <span class="op">==</span> <span class="dv">2</span>: </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                coeditors_names.append(item[<span class="dv">0</span>].text <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> item[<span class="dv">1</span>].text)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        coeditors.append(coeditors_names)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Establish the count of each collaboration between editors</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> itertools </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    all_coeditor_combinations <span class="op">=</span> []</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> coeditors: </span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        coeditor_combinations <span class="op">=</span> <span class="bu">list</span>(itertools.combinations(item, <span class="dv">2</span>))</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        coeditor_combinations <span class="op">=</span> [<span class="bu">tuple</span>(<span class="bu">sorted</span>(item)) <span class="cf">for</span> item <span class="kw">in</span> coeditor_combinations]</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> coedcomb <span class="kw">in</span> coeditor_combinations: </span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>            all_coeditor_combinations.append(coedcomb)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> <span class="bu">dict</span>(Counter(all_coeditor_combinations)) <span class="co"># ccc = coeditor_combinations_count</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Transform to a DataFrame</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> pd.DataFrame.from_dict(ccc, orient<span class="op">=</span><span class="st">"index"</span>, columns<span class="op">=</span>[<span class="st">"count"</span>])</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.reset_index()</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    ccc_split <span class="op">=</span> pd.DataFrame(ccc[<span class="st">"index"</span>].tolist())</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    ccc_merged <span class="op">=</span> ccc_split.merge(ccc, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc_merged.drop([<span class="st">"index"</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.rename({<span class="dv">0</span> : <span class="st">"coeditor1"</span>, <span class="dv">1</span> : <span class="st">"coeditor2"</span>}, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.sort_values(by<span class="op">=</span><span class="st">"count"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc.head())</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc.shape, "shape of dataframe")</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_full_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>        ccc.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter the DataFrame to make it manageable for visualization</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Determine the top N most frequent co-editors</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    coeditors_top <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(<span class="bu">list</span>(ccc.head(<span class="dv">20</span>).loc[:,<span class="st">"coeditor1"</span>]) <span class="op">+\</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        <span class="bu">list</span>(ccc.head(<span class="dv">20</span>).loc[:,<span class="st">"coeditor2"</span>])))</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(coeditors_top)</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Among all editors, "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(coeditors_top)) <span class="op">+</span> <span class="st">" have been selected as the most active co-editors."</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter the DataFrame to include just the collaborations involving at least one of the top co-editors. </span></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The resulting DataFrame will have all collaborations between the top co-editors and their co-editors. </span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    ccc_filtered <span class="op">=</span> ccc[(ccc[<span class="st">"coeditor1"</span>].isin(coeditors_top)) <span class="op">|\</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>                       (ccc[<span class="st">"coeditor2"</span>].isin(coeditors_top))]</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc_filtered.shape, "shape of dataframe of top co-editors and their co-editors.")</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simplify the labels </span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ccc_filtered = ccc_filtered.replace(' .*?]', '',regex=True).astype(str)</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor1'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor1'</span>]]</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor2'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor2'</span>]]</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The following table shows the 5 most active pairs of editors.</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ccc_filtered.head())</span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_top_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>        ccc_filtered.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>network_coeditors(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>

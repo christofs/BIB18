@@ -163,7 +163,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#first-approach-language" id="toc-first-approach-language" class="nav-link active" data-scroll-target="#first-approach-language">First approach: ‘language’</a></li>
-  <li><a href="#alternative-approach-via-the-titles" id="toc-alternative-approach-via-the-titles" class="nav-link" data-scroll-target="#alternative-approach-via-the-titles">Alternative approach via the titles</a></li>
   </ul>
 </nav>
     </div>
@@ -231,6 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="first-approach-language" class="level2">
 <h2 class="anchored" data-anchor-id="first-approach-language">First approach: ‘language’</h2>
 <p>We can use the “language” field in the dataset. This is precise, technically speaking, but depends on the level of curation of the dataset. The language field is not fully reliable at this time.</p>
+<p>We don’t have abstracts or full texts in the dataset, but on the basis of the titles alone, the (most likely) language of the publication has been determined. Note that an algorithmic process, based on the library py-lingua and using only the sometimes very short titles, has been used to create this data, so errors are to be expected. With the progress of corrections in the dataset, this will improve over time.</p>
 <div class="cell" data-execution_count="5">
 <details>
 <summary>Code</summary>
@@ -284,35 +284,6 @@ Languages</code></pre>
 <pre><code>There are 64396 instances of language in the dataset.
 At the moment, only 8 different languages are considered for analysis.
 The most prevalent language is French, with 73.89% of all entries.</code></pre>
-</div>
-</div>
-</section>
-<section id="alternative-approach-via-the-titles" class="level2">
-<h2 class="anchored" data-anchor-id="alternative-approach-via-the-titles">Alternative approach via the titles</h2>
-<p>We can also try to identify the languages from the titles.</p>
-<p>We don’t have abstracts or full texts in the dataset, but on the basis of the titles alone, the (most likely) language of the publication can be determined. (Note that an algorithmic process, based on the library py-lingua and using only the sometimes very short titles, has been used to create this data, so errors are to be expected. With the progress of corrections in the dataset, this will improve over time.)</p>
-<div class="cell" data-execution_count="9">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_titles(bibdata): </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Extract all the primary titles from the dataset. </span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Primary titles are all titles except journal names. </span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find all primary "title" elements in the dataset </span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># </span><span class="al">TODO</span><span class="co">: find the XPath to exclude journal titles. </span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    xpath <span class="op">=</span> <span class="st">"//dc:title/text()"</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    titles <span class="op">=</span> bibdata.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Number of titles found: "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(titles)) <span class="op">+</span> <span class="st">"."</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> titles</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># === Main === </span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="kw">global</span> titles </span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>titles <span class="op">=</span> get_titles(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Number of titles found: 110174.</code></pre>
 </div>
 </div>
 
