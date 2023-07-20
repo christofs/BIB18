@@ -4,6 +4,7 @@ title: "BIB18"
 
 **BIB18 – Curation and analyses of the dataset derived from the XVIIIe: Bibliographie**
 
+
 ## Overview 
 
 Some analyses of the dataset are available on the present website. The analyses are based on the RDF version of the data (currently, v0.1.0, May 20, 2023) and have been performed by Christof Schöch. Note that all numbers can be expected to shift slighly as the process of cleaning the data proceeds. Collaborative authorship / editorship as well as the publication types will most likely be most affected by corrections. The scripts to create the analyses and generate the website pages is also available at [github.com/christofs/BIB18](https://github.com/christofs/BIB18).
@@ -13,6 +14,19 @@ Source of the data: Benoît Melançon, for background information see [mapageweb
 For more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see: [github.com/christofs/BIB18](https://github.com/christofs/BIB18). The transformation was performed in May 2023. 
 
 The full bibliography can also be consulted on Zotero, see: [zotero.org/groups/5067408/BIB18](https://www.zotero.org/groups/5067408/BIB18).
+
+
+## Some remarks on the data
+
+- For publication dates, only the year has been used.
+- Correct ordering of first and last names of authors or publishers is difficult, so errors may occur. 
+- The data source does not distinguish between URLs and DOIs; consequently, they are all listed in the URL field. However, few DOIs are present anyway.
+- Information on the language of a publication has been added automatically, using the lingua-py module. This information can be erroneous in some cases (and will be improved by hand).
+- After transformation into BibTex, the BibTeX-tidy tool was used: https://flamingtempura.github.io/bibtex-tidy.
+- The resulting files are available in the `archive` folder and form the basis for import into Zotero. 
+- Several Zotero export formats are available in the `data` folder.
+- Future corrections to the data will only be made on Zotero, with updates to the formats in the `data`folder. 
+
 
 ## Nota bene
 

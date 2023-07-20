@@ -129,6 +129,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#some-remarks-on-the-data" id="toc-some-remarks-on-the-data" class="nav-link" data-scroll-target="#some-remarks-on-the-data">Some remarks on the data</a></li>
   <li><a href="#nota-bene" id="toc-nota-bene" class="nav-link" data-scroll-target="#nota-bene">Nota bene</a></li>
   <li><a href="#citation-suggestion" id="toc-citation-suggestion" class="nav-link" data-scroll-target="#citation-suggestion">Citation suggestion</a></li>
   </ul>
@@ -161,6 +162,19 @@ ul.task-list li input[type="checkbox"] {
 <p>Source of the data: Benoît Melançon, for background information see <a href="http://mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html">mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html</a> and for the Dataverse deposit, see <a href="https://doi.org/10.5683/SP3/PYYEEH">doi.org/10.5683/SP3/PYYEEH</a>.</p>
 <p>For more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see: <a href="https://github.com/christofs/BIB18">github.com/christofs/BIB18</a>. The transformation was performed in May 2023.</p>
 <p>The full bibliography can also be consulted on Zotero, see: <a href="https://www.zotero.org/groups/5067408/BIB18">zotero.org/groups/5067408/BIB18</a>.</p>
+</section>
+<section id="some-remarks-on-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="some-remarks-on-the-data">Some remarks on the data</h2>
+<ul>
+<li>For publication dates, only the year has been used.</li>
+<li>Correct ordering of first and last names of authors or publishers is difficult, so errors may occur.</li>
+<li>The data source does not distinguish between URLs and DOIs; consequently, they are all listed in the URL field. However, few DOIs are present anyway.</li>
+<li>Information on the language of a publication has been added automatically, using the lingua-py module. This information can be erroneous in some cases (and will be improved by hand).</li>
+<li>After transformation into BibTex, the BibTeX-tidy tool was used: https://flamingtempura.github.io/bibtex-tidy.</li>
+<li>The resulting files are available in the <code>archive</code> folder and form the basis for import into Zotero.</li>
+<li>Several Zotero export formats are available in the <code>data</code> folder.</li>
+<li>Future corrections to the data will only be made on Zotero, with updates to the formats in the <code>data</code>folder.</li>
+</ul>
 </section>
 <section id="nota-bene" class="level2">
 <h2 class="anchored" data-anchor-id="nota-bene">Nota bene</h2>
