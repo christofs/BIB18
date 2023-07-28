@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    num_coeditors <span class="op">=</span> []</span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    xpath <span class="op">=</span> <span class="st">"//bib:editors"</span></span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    editors <span class="op">=</span> bibdata.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(len(editors), "instances of Element 'editors'")</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"In addition, there are "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(editors)) <span class="op">+</span>  <span class="st">" instances of Element 'editors' in the dataset."</span>)</span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    num_coeditors <span class="op">=</span> []</span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> editors:</span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">"rdf:Seq/rdf:li/foaf:Person"</span></span>
