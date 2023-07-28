@@ -163,8 +163,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#number-of-collaborators-in-co-authorship-and-co-editorship" id="toc-number-of-collaborators-in-co-authorship-and-co-editorship" class="nav-link active" data-scroll-target="#number-of-collaborators-in-co-authorship-and-co-editorship">Number of collaborators in co-authorship and co-editorship</a></li>
-  <li><a href="#collaborator-networks" id="toc-collaborator-networks" class="nav-link" data-scroll-target="#collaborator-networks">Collaborator networks</a></li>
-  <li><a href="#co-editor-network" id="toc-co-editor-network" class="nav-link" data-scroll-target="#co-editor-network">Co-editor network</a></li>
+  <li><a href="#coeditor-pairs" id="toc-coeditor-pairs" class="nav-link" data-scroll-target="#coeditor-pairs">Coeditor pairs</a></li>
   <li><a href="#co-editor-networks" id="toc-co-editor-networks" class="nav-link" data-scroll-target="#co-editor-networks">Co-editor networks</a></li>
   </ul>
 </nav>
@@ -239,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="number-of-collaborators-in-co-authorship-and-co-editorship">Number of collaborators in co-authorship and co-editorship</h2>
 <p>This section determines how frequent collaborations (co-authorship, co-editorship) are. This is based on the number of “Person” elements within the “authors” or “editors” element.</p>
 <p>Note an important caveat of the data: Any time a book section in an edited volume is cited, the editors of this volume are included in the dataset. This unduly inflates the number of cases of co-editorship and will need to be resolved in a future iteration of this research by counting any edited volume only once, independently of the number of chapters from the volume mentioned in the dataset.</p>
-<div class="cell" data-scrolled="true" data-execution_count="94">
+<div class="cell" data-scrolled="true" data-execution_count="98">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_number_collaborators(bibdata): </span>
@@ -336,7 +335,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>visualize_coauthorship(coauthors, coeditors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>There are 56860 instances of Element 'authors' in the dataset.</code></pre>
+<pre><code>There are 56860 instances of Element 'authors' in the dataset.
+In addition, there are 17135 instances of Element 'editors' in the dataset.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="collaborations_files/figure-html/cell-3-output-2.png" class="img-fluid"></p>
@@ -346,10 +346,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In contrast, when looking at editorship (of edited volumes or editions), joint editorship with two editors is the most common case (with around 45% of the cases). Single editorship, however, is also widespread (with 32%) and triple co-editorship not uncommon (with 15%). There is one notable outlier in the dataset, with a title being edited by 11 co-editors.</p>
 <p>It could be interesting to distinguish between editorship of edited volumes on the one hand, and textual editions, on the other hand. This is future work.</p>
 </section>
-<section id="collaborator-networks" class="level2">
-<h2 class="anchored" data-anchor-id="collaborator-networks">Collaborator networks</h2>
+<section id="coeditor-pairs" class="level2">
+<h2 class="anchored" data-anchor-id="coeditor-pairs">Coeditor pairs</h2>
 <p>Builds the data for a network of people having collaborated as editors.</p>
-<div class="cell" data-execution_count="96">
+<div class="cell" data-scrolled="true" data-execution_count="96">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
@@ -442,8 +442,10 @@ The following table shows the 5 most active pairs of editors.
 </div>
 </div>
 </section>
-<section id="co-editor-network" class="level2">
-<h2 class="anchored" data-anchor-id="co-editor-network">Co-editor network</h2>
+<section id="co-editor-networks" class="level2">
+<h2 class="anchored" data-anchor-id="co-editor-networks">Co-editor networks</h2>
+<p>The data generated above has been imported to Gephi to create the network visualizations that follow.</p>
+<p>(The code block present here is work in progress with the aim to use the Python library Netgraph for these visualisations instead of an external tool like Gephi, to improve transparency and reproducibility.)</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -509,9 +511,6 @@ The following table shows the 5 most active pairs of editors.
 <span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>create_plot(ccc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-</section>
-<section id="co-editor-networks" class="level2">
-<h2 class="anchored" data-anchor-id="co-editor-networks">Co-editor networks</h2>
 <p>As shown above, editorship is an area of particularly intense collaboration in the community of Dix-huitiémistes, based on the data in the bibliography. The following is an initial, experimental attempt to elucidate the data using network visualization.</p>
 <p>The following shows a network of the top 20 co-editors and all of their co-editors, resulting in 148 different co-editor pairs. Each node is one editor, and each time two people have co-edited a publication, a link between them is created. The more co-editorships a person accumulates, the larger the node. The more co-editorships two people share, the thicker the edge connecting them. For this visualization, the full data of collaborations for edited volumes and editions has been massively reduced. Different parameters may strongly affect the results. See the full coeditor data in the <code>data</code> folder for more details.</p>
 <div class="quarto-figure quarto-figure-center">
