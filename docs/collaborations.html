@@ -92,6 +92,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -349,7 +352,7 @@ In addition, there are 17135 instances of Element 'editors' in the dataset.</cod
 <section id="coeditor-pairs" class="level2">
 <h2 class="anchored" data-anchor-id="coeditor-pairs">Coeditor pairs</h2>
 <p>Builds the data for a network of people having collaborated as editors.</p>
-<div class="cell" data-scrolled="true" data-execution_count="96">
+<div class="cell" data-scrolled="true" data-execution_count="107">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
@@ -421,24 +424,59 @@ In addition, there are 17135 instances of Element 'editors' in the dataset.</cod
 <span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ccc_filtered = ccc_filtered.replace(' .*?]', '',regex=True).astype(str)</span></span>
 <span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor1'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor1'</span>]]</span>
 <span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor2'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor2'</span>]]</span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The following table shows the 5 most active pairs of editors.</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ccc_filtered.head())</span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_top_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>        ccc_filtered.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The following table shows the 5 most active pairs of editors.</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> IPython.display <span class="im">import</span> HTML, display   </span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    display(HTML(ccc_filtered.head().to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
 <span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>network_coeditors(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_top_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>        ccc_filtered.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>network_coeditors(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 17135 editors (i.e., instances of Element 'editors').
 Among all editors, 20 have been selected as the most active co-editors.
 The following table shows the 5 most active pairs of editors.
-
-         coeditor1  coeditor2  count
-1848        Herman  Pelckmans    221
-3896       Hasquin    Mortier    103
-2546  Ferreyrolles    Versini     84
-184          Biard    Leuwers     78
-183          Biard    Bourdin     64</code></pre>
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">coeditor1</th>
+<th data-quarto-table-cell-role="th">coeditor2</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Herman</td>
+<td>Pelckmans</td>
+<td>221</td>
+</tr>
+<tr class="even">
+<td>Hasquin</td>
+<td>Mortier</td>
+<td>103</td>
+</tr>
+<tr class="odd">
+<td>Ferreyrolles</td>
+<td>Versini</td>
+<td>84</td>
+</tr>
+<tr class="even">
+<td>Biard</td>
+<td>Leuwers</td>
+<td>78</td>
+</tr>
+<tr class="odd">
+<td>Biard</td>
+<td>Bourdin</td>
+<td>64</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
