@@ -18,6 +18,7 @@ website:
       - publishers.ipynb
       - titles.ipynb
       - languages.ipynb
+      - coeditors.ipynb
       - collaborations.ipynb
 
 format:
