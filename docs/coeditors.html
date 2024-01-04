@@ -567,7 +567,7 @@ The following table shows the 12 most active pairs of editors.
 <section id="co-editor-network" class="level2">
 <h2 class="anchored" data-anchor-id="co-editor-network">Co-editor network</h2>
 <p>Based on the frequency of co-editorships, it is possible to draw a network representation.</p>
-<div class="cell" data-execution_count="10">
+<div class="cell" data-execution_count="27">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_plot(ccc): </span>
@@ -580,22 +580,29 @@ The following table shows the 12 most active pairs of editors.
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc[ccc[<span class="st">"weight"</span>] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load the data into a NetworkX graph</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    net <span class="op">=</span> Network(notebook<span class="op">=</span><span class="va">True</span>, cdn_resources<span class="op">=</span><span class="st">'in_line'</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    net <span class="op">=</span> Network(<span class="st">'1600px'</span>, <span class="st">'2800px'</span>, notebook<span class="op">=</span><span class="va">True</span>, cdn_resources<span class="op">=</span><span class="st">'in_line'</span>)</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.from_pandas_edgelist(</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        ccc,</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        source <span class="op">=</span> <span class="st">"coeditor1"</span>,</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        target <span class="op">=</span> <span class="st">"coeditor2"</span>,</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        edge_attr <span class="op">=</span> <span class="st">"weight"</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        edge_attr <span class="op">=</span> <span class="st">"weight"</span>,</span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the data using pyvis</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    net.from_nx(G)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    net.toggle_physics(<span class="va">True</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    net.show(<span class="st">"figures/coeditor-network.html"</span>)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>create_plot(ccc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(G)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.Graph()</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> ccc.iterrows(): </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        G.add_edge(line[<span class="dv">1</span>][<span class="dv">0</span>], line[<span class="dv">1</span>][<span class="dv">1</span>], weight<span class="op">=</span>line[<span class="dv">1</span>][<span class="dv">2</span>], title<span class="op">=</span>line[<span class="dv">1</span>][<span class="dv">2</span>])</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the data using pyvis</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    net.from_nx(G)</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    net.toggle_physics(<span class="va">True</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    net.show(<span class="st">"figures/coeditor-network.html"</span>)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>create_plot(ccc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>figures/coeditor-network.html</code></pre>
+<pre><code>Graph with 154 nodes and 186 edges
+figures/coeditor-network.html</code></pre>
 </div>
 </div>
 <p>This data can be visualized as a network. Click on the following image for an interactive network plot.</p>
