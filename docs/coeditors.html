@@ -251,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="number-of-collaborators-in-co-editorship">Number of collaborators in co-editorship</h2>
 <p>This section determines how frequent co-editorship is.</p>
 <p>Multiple entries of the same edited volume are taken into account only once, in this iteration of the analysis. (This avoids an undue inflation of the number of cases of co-editorship in cases where multiple chapters from the same edited volume are present in the database.) However, at the moment, this comes at the expense of the edited books not being included in the analysis. These will be added next.</p>
-<div class="cell" data-scrolled="true" data-execution_count="4">
+<div class="cell" data-scrolled="true" data-execution_count="8">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_editordata(bibdata): </span>
@@ -263,79 +263,84 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    xpath <span class="op">=</span> <span class="st">"//bib:BookSection"</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    sections <span class="op">=</span> bibdata.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"There are "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(sections)) <span class="op">+</span>  <span class="st">" instances of element 'BookSection'."</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For each section, get the editor(s), booktitle, authors, sectiontitle</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    editordata <span class="op">=</span> {}</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sec <span class="kw">in</span> sections[:]: </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        counter <span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">".//bib:editors//foaf:surname//text()"</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        editors <span class="op">=</span> sec.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">".//bib:Book/dc:title//text()"</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>: </span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            booktitle <span class="op">=</span> sec.xpath(xpath, namespaces<span class="op">=</span>namespaces)[<span class="dv">0</span>]</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span>: </span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            booktitle <span class="op">=</span> <span class="st">"missing title number "</span> <span class="op">+</span> <span class="bu">str</span>(counter)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print(booktitle) # Only happens less than 10 times, it seems. </span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Collect each booktitle only once; only last occurrence is kept (!)</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        editordata[booktitle] <span class="op">=</span> editors</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check results </span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"All of the book sections mentioned above correspond to (only)"</span>, <span class="bu">len</span>(editordata), <span class="st">"different titles of edited volumes."</span>)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    ratio <span class="op">=</span> np.<span class="bu">round</span>(np.divide(<span class="bu">len</span>(sections), <span class="bu">len</span>(editordata)),<span class="dv">2</span>)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"This means that, on average, an edited volume is mentioned"</span>, ratio, <span class="st">"times, each mention corresponding to one section of the volume being mentioned."</span>)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">#for title,editors in editordata.items(): </span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">#    print(editors,title)</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> editordata</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>editordata <span class="op">=</span> get_editordata(bibdata)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Also, find all instances of books mentioned as a whole and that have editors. </span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># === </span><span class="al">TBD</span><span class="co"> ===</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For each section (and each book), get the editor(s), booktitle, authors, sectiontitle</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    editordata <span class="op">=</span> {}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sec <span class="kw">in</span> sections[:]: </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        counter <span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">".//bib:editors//foaf:surname//text()"</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        editors <span class="op">=</span> sec.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        editors <span class="op">=</span> [editor <span class="cf">for</span> editor <span class="kw">in</span> editors <span class="cf">if</span> <span class="st">"lacollaborationde"</span> <span class="kw">not</span> <span class="kw">in</span> editor]</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">".//bib:Book/dc:title//text()"</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>: </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            booktitle <span class="op">=</span> sec.xpath(xpath, namespaces<span class="op">=</span>namespaces)[<span class="dv">0</span>]</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span>: </span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            booktitle <span class="op">=</span> <span class="st">"missing title number "</span> <span class="op">+</span> <span class="bu">str</span>(counter)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print(booktitle) # Only happens less than 10 times, it seems. </span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Collect each booktitle only once; only last occurrence is kept (!)</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        editordata[booktitle] <span class="op">=</span> editors</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check results </span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"All of the book sections mentioned above correspond to (only)"</span>, <span class="bu">len</span>(editordata), <span class="st">"different titles of edited volumes."</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    ratio <span class="op">=</span> np.<span class="bu">round</span>(np.divide(<span class="bu">len</span>(sections), <span class="bu">len</span>(editordata)),<span class="dv">2</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"This means that, on average, an edited volume is mentioned"</span>, ratio, <span class="st">"times, each mention corresponding to one section of the volume being mentioned."</span>)</span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_coeditor_numbers(editordata): </span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">    Based on the editordata, establish the number of times each number of co-editors appears, </span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">    as well as the corresponding percentages for each number of co-editors. </span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> Counter([<span class="bu">len</span>(item) <span class="cf">for</span> item <span class="kw">in</span> editordata.values()])</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> pd.DataFrame(pd.Series(coeditors, name<span class="op">=</span><span class="st">"count"</span>))</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    coeditors[<span class="st">"percentage"</span>] <span class="op">=</span> np.<span class="bu">round</span>(np.multiply(np.divide(coeditors[<span class="st">"count"</span>], np.<span class="bu">sum</span>(coeditors[<span class="st">"count"</span>])),<span class="dv">100</span>),<span class="dv">1</span>)</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prettify the DataFrame</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    coeditors[<span class="st">"number"</span>] <span class="op">=</span> coeditors.index</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> coeditors.sort_values(by<span class="op">=</span><span class="st">"number"</span>)</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> coeditors[[<span class="st">'number'</span>, <span class="st">'count'</span>, <span class="st">'percentage'</span>]]</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The following table shows counts and percentages for different numbers of co-editors.</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    display(HTML(coeditors.to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> coeditors</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>coeditors <span class="op">=</span> get_coeditor_numbers(editordata)</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize_coeditor_numbers(coeditors): </span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co">    Create a simple bar plot that shows </span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co">    the percentage of each number of co-editors in the dataset.</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The following visualization shows counts and percentages for different numbers of co-editors.</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> seaborn.objects <span class="im">as</span> so</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    (</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>        so.Plot(data<span class="op">=</span>coeditors, x<span class="op">=</span><span class="st">"number"</span>, y<span class="op">=</span><span class="st">"count"</span>, text<span class="op">=</span><span class="st">"percentage"</span>)</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        .add(so.Bar())</span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>        .add(so.Text(color<span class="op">=</span><span class="st">"w"</span>, valign<span class="op">=</span><span class="st">"top"</span>, offset<span class="op">=</span><span class="dv">5</span>))</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>        .scale(x<span class="op">=</span>so.Continuous().tick(every<span class="op">=</span><span class="dv">1</span>))</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>        .label(</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span><span class="st">"Number of co-editors"</span>,</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"Counts (percentage shown as labels)"</span>,</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>            title <span class="op">=</span> <span class="st">"Counts and percentages of different number of co-editors"</span>)</span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>        .save(<span class="st">"figures/coeditor-percentages.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>        .show()</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>visualize_coeditor_numbers(coeditors)</span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="co">############## Note from January 3, 2024 #############</span></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Attention! For the moment, this data only looks at the book titles and editors for book sections. </span></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="co"># However, there are also many "books" with editors (so not monographs), and these need to be taken into account as well.</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="co"># What the results show already, compared to the earlier results, is that there is indeed a massive shift visible because of the (correct) aggregation of the editor data to the unique book titles. </span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="co"># It will be interesting to see what happens to the co-editorship network, I expect it to shift as well. </span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="co">#########################################################</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="co">#for title,editors in editordata.items(): </span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">#    print(editors,title)</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> editordata</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>editordata <span class="op">=</span> get_editordata(bibdata)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_coeditor_numbers(editordata): </span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">    Based on the editordata, establish the number of times each number of co-editors appears, </span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">    as well as the corresponding percentages for each number of co-editors. </span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> Counter([<span class="bu">len</span>(item) <span class="cf">for</span> item <span class="kw">in</span> editordata.values()])</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> pd.DataFrame(pd.Series(coeditors, name<span class="op">=</span><span class="st">"count"</span>))</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    coeditors[<span class="st">"percentage"</span>] <span class="op">=</span> np.<span class="bu">round</span>(np.multiply(np.divide(coeditors[<span class="st">"count"</span>], np.<span class="bu">sum</span>(coeditors[<span class="st">"count"</span>])),<span class="dv">100</span>),<span class="dv">1</span>)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prettify the DataFrame</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    coeditors[<span class="st">"number"</span>] <span class="op">=</span> coeditors.index</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> coeditors.sort_values(by<span class="op">=</span><span class="st">"number"</span>)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> coeditors[[<span class="st">'number'</span>, <span class="st">'count'</span>, <span class="st">'percentage'</span>]]</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The following table shows counts and percentages for different numbers of co-editors.</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    display(HTML(coeditors.to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> coeditors</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>coeditors <span class="op">=</span> get_coeditor_numbers(editordata)</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize_coeditor_numbers(coeditors): </span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co">    Create a simple bar plot that shows </span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="co">    the percentage of each number of co-editors in the dataset.</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">The following visualization shows counts and percentages for different numbers of co-editors.</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> seaborn.objects <span class="im">as</span> so</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>        so.Plot(data<span class="op">=</span>coeditors, x<span class="op">=</span><span class="st">"number"</span>, y<span class="op">=</span><span class="st">"count"</span>, text<span class="op">=</span><span class="st">"percentage"</span>)</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>        .add(so.Bar())</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>        .add(so.Text(color<span class="op">=</span><span class="st">"w"</span>, valign<span class="op">=</span><span class="st">"top"</span>, offset<span class="op">=</span><span class="dv">5</span>))</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>        .scale(x<span class="op">=</span>so.Continuous().tick(every<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>        .label(</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span><span class="st">"Number of co-editors"</span>,</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"Counts (percentage shown as labels)"</span>,</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>            title <span class="op">=</span> <span class="st">"Counts and percentages of different number of co-editors"</span>)</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>        .save(<span class="st">"figures/coeditor-percentages.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>        .show()</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>visualize_coeditor_numbers(coeditors)</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="co">############## Note from January 3, 2024 #############</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Attention! For the moment, this data only looks at the book titles and editors for book sections. </span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="co"># However, there are also many "books" with editors (so not monographs), and these need to be taken into account as well.</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="co"># What the results show already, compared to the earlier results, is that there is indeed a massive shift visible because of the (correct) aggregation of the editor data to the unique book titles. </span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="co"># It will be interesting to see what happens to the co-editorship network, I expect it to shift as well. </span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="co">#########################################################</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 14421 instances of element 'BookSection'.
@@ -365,28 +370,28 @@ The following visualization shows counts and percentages for different numbers o
 </tr>
 <tr class="even">
 <td>1</td>
-<td>912</td>
-<td>32.3</td>
+<td>923</td>
+<td>32.7</td>
 </tr>
 <tr class="odd">
 <td>2</td>
-<td>1072</td>
-<td>37.9</td>
+<td>1068</td>
+<td>37.8</td>
 </tr>
 <tr class="even">
 <td>3</td>
-<td>360</td>
+<td>359</td>
 <td>12.7</td>
 </tr>
 <tr class="odd">
 <td>4</td>
-<td>102</td>
+<td>101</td>
 <td>3.6</td>
 </tr>
 <tr class="even">
 <td>5</td>
-<td>22</td>
-<td>0.8</td>
+<td>17</td>
+<td>0.6</td>
 </tr>
 <tr class="odd">
 <td>6</td>
@@ -406,7 +411,7 @@ The following visualization shows counts and percentages for different numbers o
 <section id="coeditor-pairs" class="level2">
 <h2 class="anchored" data-anchor-id="coeditor-pairs">Coeditor pairs</h2>
 <p>Looks at which people have frequently collaborated as editors of edited volumes and/or editions.</p>
-<div class="cell" data-scrolled="true" data-execution_count="5">
+<div class="cell" data-scrolled="true" data-execution_count="9">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
@@ -480,7 +485,7 @@ The following visualization shows counts and percentages for different numbers o
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Overall 2825 publications with editors are considered here.
-Among all editors, 34 have been selected as the most active co-editors.
+Among all editors, 32 have been selected as the most active co-editors.
 The following table shows the 12 most active pairs of editors.
 </code></pre>
 </div>
@@ -510,8 +515,18 @@ The following table shows the 12 most active pairs of editors.
 <td>5</td>
 </tr>
 <tr class="even">
+<td>Biard</td>
+<td>Bourdin</td>
+<td>4</td>
+</tr>
+<tr class="odd">
 <td>Herman</td>
 <td>Peeters</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Faggion</td>
+<td>Regina</td>
 <td>4</td>
 </tr>
 <tr class="odd">
@@ -520,33 +535,23 @@ The following table shows the 12 most active pairs of editors.
 <td>4</td>
 </tr>
 <tr class="even">
-<td>McCallam</td>
-<td>Pratt</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<td>Faggion</td>
-<td>Regina</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td>Biard</td>
-<td>Bourdin</td>
-<td>4</td>
-</tr>
-<tr class="odd">
 <td>Berchtold</td>
 <td>Martin</td>
 <td>4</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Porret</td>
 <td>Rosset</td>
 <td>4</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Donato</td>
 <td>Lüsebrink</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>McCallam</td>
+<td>Pratt</td>
 <td>4</td>
 </tr>
 <tr class="even">
@@ -562,7 +567,7 @@ The following table shows the 12 most active pairs of editors.
 <section id="co-editor-network" class="level2">
 <h2 class="anchored" data-anchor-id="co-editor-network">Co-editor network</h2>
 <p>Based on the frequency of co-editorships, it is possible to draw a network representation.</p>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="10">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_plot(ccc): </span>
