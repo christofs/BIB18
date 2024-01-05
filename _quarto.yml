@@ -19,6 +19,7 @@ website:
       - titles.ipynb
       - languages.ipynb
       - coeditors.ipynb
+      - coauthors.ipynb
       - collaborations.ipynb
 
 format:

@@ -113,6 +113,10 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Co-editors</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./coauthors.html" rel="" target="">
+ <span class="menu-text">Co-authors</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./collaborations.html" rel="" target="">
  <span class="menu-text">Collaborations</span></a>
   </li>  
@@ -164,21 +168,21 @@ ul.task-list li input[type="checkbox"] {
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
 <p>Some analyses of the dataset are available on the present website. The analyses are based on the RDF version of the data (currently, v0.1.0, May 20, 2023) and have been performed by Christof Schöch. Note that all numbers can be expected to shift slighly as the process of cleaning the data proceeds. Collaborative authorship / editorship as well as the publication types will most likely be most affected by corrections. The scripts used to create the analyses are integrated into the pages on this website for inspection (click on <code>Code</code>), but are also available as Jupyter Notebooks at <a href="https://github.com/christofs/BIB18">github.com/christofs/BIB18</a>.</p>
-<p>Source of the data: Benoît Melançon, for background information see <a href="http://mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html">mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html</a> and for the Dataverse deposit, see <a href="https://doi.org/10.5683/SP3/PYYEEH">doi.org/10.5683/SP3/PYYEEH</a>.</p>
-<p>For more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see: <a href="https://github.com/christofs/BIB18">github.com/christofs/BIB18</a>. The transformation was performed in May 2023.</p>
+<p>Source of the data: Benoît Melançon. For background information see his <a href="https://benoitmelancon.quebec/xviii/donnees_biblios_1_550.html">“Libération des données”</a> and for the corresponding Dataverse deposit, see <a href="https://doi.org/10.5683/SP3/PYYEEH">doi.org/10.5683/SP3/PYYEEH</a>.</p>
+<p>For more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see the Github repository <a href="https://github.com/christofs/BIB18">github.com/christofs/BIB18</a>. The original transformation was performed in May 2023.</p>
 <p>The full bibliography can also be consulted on Zotero, see: <a href="https://www.zotero.org/groups/5067408/BIB18">zotero.org/groups/5067408/BIB18</a>.</p>
 </section>
 <section id="some-remarks-on-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="some-remarks-on-the-data">Some remarks on the data</h2>
 <ul>
 <li>For publication dates, only the year has been used.</li>
-<li>Correct ordering of first and last names of authors or publishers is difficult, so errors may occur.</li>
+<li>Correct ordering of first and last names of authors or publishers is difficult, so errors may persist.</li>
 <li>The data source does not distinguish between URLs and DOIs; consequently, they are all listed in the URL field. However, few DOIs are present anyway.</li>
 <li>Information on the language of a publication has been added automatically, using the lingua-py module. This information can be erroneous in some cases (and will be improved by hand).</li>
 <li>After transformation into BibTex, the BibTeX-tidy tool was used: https://flamingtempura.github.io/bibtex-tidy.</li>
 <li>The resulting files are available in the <code>archive</code> folder and form the basis for import into Zotero.</li>
 <li>Several Zotero export formats are available in the <code>data</code> folder.</li>
-<li>Future corrections to the data will only be made on Zotero, with updates to the formats in the <code>data</code>folder.</li>
+<li>Future corrections to the data will be made on Zotero, with updates to the formats in the <code>data</code>folder.</li>
 </ul>
 </section>
 <section id="nota-bene" class="level2">

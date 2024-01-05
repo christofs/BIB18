@@ -9,9 +9,9 @@ title: "BIB18"
 
 Some analyses of the dataset are available on the present website. The analyses are based on the RDF version of the data (currently, v0.1.0, May 20, 2023) and have been performed by Christof Schöch. Note that all numbers can be expected to shift slighly as the process of cleaning the data proceeds. Collaborative authorship / editorship as well as the publication types will most likely be most affected by corrections. The scripts used to create the analyses are integrated into the pages on this website for inspection (click on `Code`), but are also available as Jupyter Notebooks at [github.com/christofs/BIB18](https://github.com/christofs/BIB18).
 
-Source of the data: Benoît Melançon, for background information see [mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html](http://mapageweb.umontreal.ca/melancon/donnees_biblios_1_550.html) and for the Dataverse deposit, see [doi.org/10.5683/SP3/PYYEEH](https://doi.org/10.5683/SP3/PYYEEH). 
+Source of the data: Benoît Melançon. For background information see his ["Libération des données"](https://benoitmelancon.quebec/xviii/donnees_biblios_1_550.html) and for the corresponding Dataverse deposit, see [doi.org/10.5683/SP3/PYYEEH](https://doi.org/10.5683/SP3/PYYEEH). 
 
-For more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see: [github.com/christofs/BIB18](https://github.com/christofs/BIB18). The transformation was performed in May 2023. 
+For more information on the transformation process, and to obtain the dataset in various formats (BibTeX, Zotero RDF, JSON), see the Github repository [github.com/christofs/BIB18](https://github.com/christofs/BIB18). The original transformation was performed in May 2023. 
 
 The full bibliography can also be consulted on Zotero, see: [zotero.org/groups/5067408/BIB18](https://www.zotero.org/groups/5067408/BIB18).
 
@@ -19,22 +19,24 @@ The full bibliography can also be consulted on Zotero, see: [zotero.org/groups/5
 ## Some remarks on the data
 
 - For publication dates, only the year has been used.
-- Correct ordering of first and last names of authors or publishers is difficult, so errors may occur. 
+- Correct ordering of first and last names of authors or publishers is difficult, so errors may persist. 
 - The data source does not distinguish between URLs and DOIs; consequently, they are all listed in the URL field. However, few DOIs are present anyway.
 - Information on the language of a publication has been added automatically, using the lingua-py module. This information can be erroneous in some cases (and will be improved by hand).
 - After transformation into BibTex, the BibTeX-tidy tool was used: https://flamingtempura.github.io/bibtex-tidy.
 - The resulting files are available in the `archive` folder and form the basis for import into Zotero. 
 - Several Zotero export formats are available in the `data` folder.
-- Future corrections to the data will only be made on Zotero, with updates to the formats in the `data`folder. 
+- Future corrections to the data will be made on Zotero, with updates to the formats in the `data`folder. 
 
 
 ## Nota bene
 
 Benoît Melançon specifies: "Quiconque souhaite s’approprier ces données peut le faire, sous deux conditions. 1. L’attribution de la collecte des données doit toujours être rappelée, par exemple sous la forme «Données colligées par Benoît Melançon». 2. Aucune exploitation commerciale de ces données n’est tolérée. Elles ne peuvent pas être vendues sous quelque forme que ce soit. Autrement dit, chez Creative Commons : Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) — [https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)."
 
+
 ## Citation suggestion 
 
 Christof Schöch. *BIB18 – Curation and Analysis of the dataset derived from the XVIIIe: Bibliographie*, v0.3.0. Github.com, 2023. URL: [https://christofs.github.io/BIB18/](https://christofs.github.io/BIB18/), DOI: [10.5281/zenodo.8166110](https://doi.org/10.5281/zenodo.8166110). 
+
 
 ## Notes on work in progress 
 
