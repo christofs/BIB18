@@ -20,7 +20,6 @@ website:
       - languages.ipynb
       - coeditors.ipynb
       - coauthors.ipynb
-      - collaborations.ipynb
 
 format:
   html:
