@@ -198,8 +198,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>This page focuses on co-editorship, especially of edited volumes, in the <em>Bibliographie</em>.</p>
-<div class="cell" data-execution_count="5">
+<p>This page focuses on co-editorship, especially of edited volumes, but including also editions, in the <em>Bibliographie</em>.</p>
+<div class="cell" data-execution_count="94">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === Imports === </span></span>
@@ -252,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="collecting-all-publications-that-have-editors" class="level2">
 <h2 class="anchored" data-anchor-id="collecting-all-publications-that-have-editors">Collecting all publications that have editors</h2>
 <p>For the time being, only books (including editions) and book sections are considered. Multiple entries of the same edited volume are taken into account only once. This avoids an undue inflation of the number of cases of co-editorship in cases where multiple chapters from the same edited volume are present in the database.</p>
-<div class="cell" data-scrolled="true" data-execution_count="40">
+<div class="cell" data-scrolled="true" data-execution_count="109">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_editordata(bibdata): </span>
@@ -277,27 +277,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> sections[:]: </span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        counter <span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">".//bib:editors//foaf:surname//text()"</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        editors <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        editors <span class="op">=</span> [editor <span class="cf">for</span> editor <span class="kw">in</span> editors <span class="cf">if</span> <span class="st">"lacollaborationde"</span> <span class="kw">not</span> <span class="kw">in</span> editor]</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">".//bib:Book/dc:title//text()"</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>: </span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            booktitle <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)[<span class="dv">0</span>]</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span>: </span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            booktitle <span class="op">=</span> <span class="st">"missing title number "</span> <span class="op">+</span> <span class="bu">str</span>(counter)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print(booktitle) # Only happens less than 10 times, it seems. </span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Collect each booktitle only once; only last occurrence is kept (!)</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(editors) <span class="op">&gt;</span> <span class="dv">0</span>: </span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            editordata[booktitle] <span class="op">=</span> editors</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check results </span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("All of the book sections mentioned above correspond to (only)", len(editordata), "different titles of edited volumes.")</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ratio = np.round(np.divide(len(sections), len(editordata)),2)</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("This means that, on average, an edited volume is mentioned", ratio, "times, each mention corresponding to one section of the volume being mentioned.")</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">#for title,editors in editordata.items(): </span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">#    print(editors,title)</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> editordata</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>editordata <span class="op">=</span> get_editordata(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the editors' last names</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">".//bib:editors//foaf:surname//text()"</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        editors_last <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        editors_last <span class="op">=</span> [editor <span class="cf">for</span> editor <span class="kw">in</span> editors_last <span class="cf">if</span> <span class="st">"lacollaborationde"</span> <span class="kw">not</span> <span class="kw">in</span> editor]</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the editors' first names</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">".//bib:editors//foaf:givenName//text()"</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        editors_first <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        editors_first <span class="op">=</span> [editor <span class="cf">for</span> editor <span class="kw">in</span> editors_first <span class="cf">if</span> <span class="st">"avec"</span> <span class="kw">not</span> <span class="kw">in</span> editor]</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Combine the names in a concise manner</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        editors <span class="op">=</span> []</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> last, first <span class="kw">in</span> <span class="bu">zip</span>(editors_last, editors_first):</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            full <span class="op">=</span> last <span class="op">+</span> <span class="st">"_"</span> <span class="op">+</span> first</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            editors.append(full)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the book titles</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        xpath <span class="op">=</span> <span class="st">".//bib:Book/dc:title//text()"</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>: </span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>            booktitle <span class="op">=</span> item.xpath(xpath, namespaces<span class="op">=</span>namespaces)[<span class="dv">0</span>]</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span>: </span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>            booktitle <span class="op">=</span> <span class="st">"missing title number "</span> <span class="op">+</span> <span class="bu">str</span>(counter)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print(booktitle) # Only happens less than 10 times, it seems. </span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Collect each booktitle only once; only last occurrence is kept (!)</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(editors) <span class="op">&gt;</span> <span class="dv">0</span>: </span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>            editordata[booktitle] <span class="op">=</span> editors</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Check results </span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("All of the book sections mentioned above correspond to (only)", len(editordata), "different titles of edited volumes.")</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ratio = np.round(np.divide(len(sections), len(editordata)),2)</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("This means that, on average, an edited volume is mentioned", ratio, "times, each mention corresponding to one section of the volume being mentioned.")</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="co">#for title,editors in editordata.items(): </span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    <span class="co">#    print(editors,title)</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> editordata</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>editordata <span class="op">=</span> get_editordata(bibdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 14421 instances of element 'BookSection'.
@@ -310,7 +321,7 @@ Overall, there are 37480 publications included at this point.</code></pre>
 <section id="prevalence-of-co-editor-numbers" class="level2">
 <h2 class="anchored" data-anchor-id="prevalence-of-co-editor-numbers">Prevalence of co-editor numbers</h2>
 <p>Based on the data on book titles that have one or several editors, we can now investigate the prevalence of the different numbers of editors books typically have. The following table shows this data.</p>
-<div class="cell" data-execution_count="42">
+<div class="cell" data-execution_count="110">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_coeditor_numbers(editordata): </span>
@@ -343,32 +354,32 @@ Overall, there are 37480 publications included at this point.</code></pre>
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>2690</td>
-<td>39.2</td>
+<td>2730</td>
+<td>39.8</td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td>2867</td>
-<td>41.8</td>
+<td>2847</td>
+<td>41.5</td>
 </tr>
 <tr class="odd">
 <td>3</td>
-<td>973</td>
-<td>14.2</td>
+<td>966</td>
+<td>14.1</td>
 </tr>
 <tr class="even">
 <td>4</td>
-<td>271</td>
-<td>3.9</td>
+<td>259</td>
+<td>3.8</td>
 </tr>
 <tr class="odd">
 <td>5</td>
-<td>55</td>
-<td>0.8</td>
+<td>49</td>
+<td>0.7</td>
 </tr>
 <tr class="even">
 <td>6</td>
-<td>6</td>
+<td>5</td>
 <td>0.1</td>
 </tr>
 <tr class="odd">
@@ -381,7 +392,7 @@ Overall, there are 37480 publications included at this point.</code></pre>
 </div>
 </div>
 <p>The following visualization shows counts and percentages for different numbers of co-editors.</p>
-<div class="cell" data-execution_count="43">
+<div class="cell" data-execution_count="111">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize_coeditor_numbers(coeditors): </span>
@@ -416,7 +427,7 @@ Overall, there are 37480 publications included at this point.</code></pre>
 <section id="coeditor-pairs" class="level2">
 <h2 class="anchored" data-anchor-id="coeditor-pairs">Coeditor pairs</h2>
 <p>This section looks at which people have frequently collaborated as editors of edited volumes and/or editions. The table below shows the 10 most active pairs of editors.</p>
-<div class="cell" data-scrolled="true" data-execution_count="50">
+<div class="cell" data-scrolled="true" data-execution_count="257">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
@@ -425,7 +436,7 @@ Overall, there are 37480 publications included at this point.</code></pre>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">"ignore"</span>, category<span class="op">=</span>SettingWithCopyWarning)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_recurring_coeditors(editordata): </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_recurring_coeditors(editordata, topn): </span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Which people have frequently collaborated as editors? </span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">    This is based on the data collected above (editors of unique titles). </span></span>
@@ -438,59 +449,63 @@ Overall, there are 37480 publications included at this point.</code></pre>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get editor names from editordata. </span></span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> editordata.values()</span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Overall,"</span>, <span class="bu">len</span>(coeditors), <span class="st">"publications with editors are considered here."</span>)</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Establish the count of each collaboration between editors</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> itertools </span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    all_coeditor_combinations <span class="op">=</span> []</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> coeditors: </span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        coeditor_combinations <span class="op">=</span> <span class="bu">list</span>(itertools.combinations(item, <span class="dv">2</span>))</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        coeditor_combinations <span class="op">=</span> [<span class="bu">tuple</span>(<span class="bu">sorted</span>(item)) <span class="cf">for</span> item <span class="kw">in</span> coeditor_combinations]</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> coedcomb <span class="kw">in</span> coeditor_combinations: </span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>            all_coeditor_combinations.append(coedcomb)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> <span class="bu">dict</span>(Counter(all_coeditor_combinations)) <span class="co"># ccc = coeditor_combinations_count</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Transform to a DataFrame</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> pd.DataFrame.from_dict(ccc, orient<span class="op">=</span><span class="st">"index"</span>, columns<span class="op">=</span>[<span class="st">"count"</span>])</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.reset_index()</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    ccc_split <span class="op">=</span> pd.DataFrame(ccc[<span class="st">"index"</span>].tolist())</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    ccc_merged <span class="op">=</span> ccc_split.merge(ccc, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc_merged.drop([<span class="st">"index"</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.rename({<span class="dv">0</span> : <span class="st">"coeditor1"</span>, <span class="dv">1</span> : <span class="st">"coeditor2"</span>}, axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.sort_values(by<span class="op">=</span><span class="st">"count"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc.head())</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc.shape, "shape of dataframe")</span></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_full_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>        ccc.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter the DataFrame to make it manageable for visualization</span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Determine the top N most frequent co-editors</span></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    coeditors_top <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(<span class="bu">list</span>(ccc.head(<span class="dv">30</span>).loc[:,<span class="st">"coeditor1"</span>]) <span class="op">+\</span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>        <span class="bu">list</span>(ccc.head(<span class="dv">30</span>).loc[:,<span class="st">"coeditor2"</span>])))</span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(coeditors_top)</span></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Among all editors, "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(coeditors_top)) <span class="op">+</span> <span class="st">" have been selected as the most active co-editors."</span>)</span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"In the following analysis, all editors they have collaborated with, however, are included."</span>)</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter the DataFrame to include just the collaborations involving at least one of the top co-editors. </span></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The resulting DataFrame will have all collaborations between the top co-editors and their co-editors. </span></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    ccc_filtered <span class="op">=</span> ccc[(ccc[<span class="st">"coeditor1"</span>].isin(coeditors_top)) <span class="op">|\</span></span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>                       (ccc[<span class="st">"coeditor2"</span>].isin(coeditors_top))]</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc_filtered.shape, "shape of dataframe of top co-editors and their co-editors.")</span></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simplify the labels </span></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ccc_filtered = ccc_filtered.replace(' .*?]', '',regex=True).astype(str)</span></span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor1'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor1'</span>]]</span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor2'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor2'</span>]]</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Display this as a formatted table    </span></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>    display(HTML(ccc_filtered.head(<span class="dv">10</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_top_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>        ccc_filtered.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ccc_filtered</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>ccc_filtered <span class="op">=</span> get_recurring_coeditors(editordata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    coeditor_names <span class="op">=</span> [item <span class="cf">for</span> sublist <span class="kw">in</span> coeditors <span class="cf">for</span> item <span class="kw">in</span> sublist]</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Also, there are"</span>, <span class="bu">len</span>(<span class="bu">set</span>(coeditor_names)) , <span class="st">"different editors represented in the data."</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Establish the count of each collaboration between editors</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> itertools </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    all_coeditor_combinations <span class="op">=</span> []</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> item <span class="kw">in</span> coeditors: </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        coeditor_combinations <span class="op">=</span> <span class="bu">list</span>(itertools.combinations(item, <span class="dv">2</span>))</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        coeditor_combinations <span class="op">=</span> [<span class="bu">tuple</span>(<span class="bu">sorted</span>(item)) <span class="cf">for</span> item <span class="kw">in</span> coeditor_combinations]</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> coedcomb <span class="kw">in</span> coeditor_combinations: </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>            all_coeditor_combinations.append(coedcomb)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> <span class="bu">dict</span>(Counter(all_coeditor_combinations)) <span class="co"># ccc = coeditor_combinations_count</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Transform to a DataFrame</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> pd.DataFrame.from_dict(ccc, orient<span class="op">=</span><span class="st">"index"</span>, columns<span class="op">=</span>[<span class="st">"count"</span>])</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.reset_index()</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    ccc_split <span class="op">=</span> pd.DataFrame(ccc[<span class="st">"index"</span>].tolist())</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    ccc_merged <span class="op">=</span> ccc_split.merge(ccc, left_index<span class="op">=</span><span class="va">True</span>, right_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc_merged.drop([<span class="st">"index"</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.rename({<span class="dv">0</span> : <span class="st">"coeditor1"</span>, <span class="dv">1</span> : <span class="st">"coeditor2"</span>}, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc.sort_values(by<span class="op">=</span><span class="st">"count"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc.head())</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc.shape, "shape of dataframe")</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_full_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>        ccc.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter the DataFrame to make it manageable for visualization</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Determine the top N most frequent co-editors</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>    coeditors_top <span class="op">=</span> <span class="bu">list</span>(<span class="bu">set</span>(<span class="bu">list</span>(ccc.head(topn).loc[:,<span class="st">"coeditor1"</span>]) <span class="op">+\</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>        <span class="bu">list</span>(ccc.head(topn).loc[:,<span class="st">"coeditor2"</span>])))</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(coeditors_top)</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Among all editors, "</span> <span class="op">+</span> <span class="bu">str</span>(<span class="bu">len</span>(coeditors_top)) <span class="op">+</span> <span class="st">" have been selected as the most active co-editors."</span>)</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"In the following analysis, all editors they have collaborated with, however, are included."</span>)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Filter the DataFrame to include just the collaborations involving at least one of the top co-editors. </span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The resulting DataFrame will have all collaborations between the top co-editors and their co-editors. </span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>    ccc_filtered <span class="op">=</span> ccc[(ccc[<span class="st">"coeditor1"</span>].isin(coeditors_top)) <span class="op">|\</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>                       (ccc[<span class="st">"coeditor2"</span>].isin(coeditors_top))]</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(ccc_filtered.shape, "shape of dataframe of top co-editors and their co-editors.")</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simplify the labels </span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ccc_filtered = ccc_filtered.replace(' .*?]', '',regex=True).astype(str)</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor1'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor1'</span>]]</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>    ccc_filtered.loc[:,<span class="st">'coeditor2'</span>] <span class="op">=</span>  [re.sub(<span class="vs">r', .*'</span>,<span class="st">''</span>, <span class="bu">str</span>(x)) <span class="cf">for</span> x <span class="kw">in</span> ccc_filtered.loc[:,<span class="st">'coeditor2'</span>]]</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Display this as a formatted table    </span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>    display(HTML(ccc_filtered.head(<span class="dv">10</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Save to disk </span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(join(coeditorcounts_top_file), <span class="st">"w"</span>, encoding<span class="op">=</span><span class="st">"utf8"</span>) <span class="im">as</span> outfile: </span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>        ccc_filtered.to_csv(outfile, sep<span class="op">=</span><span class="st">";"</span>)</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ccc, ccc_filtered</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>ccc, ccc_filtered <span class="op">=</span> get_recurring_coeditors(editordata, topn<span class="op">=</span><span class="dv">150</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Overall, 6863 publications with editors are considered here.
-Among all editors, 44 have been selected as the most active co-editors.
+<pre><code>Overall, 6857 publications with editors are considered here.
+Also, there are 7151 different editors represented in the data.
+Among all editors, 208 have been selected as the most active co-editors.
 In the following analysis, all editors they have collaborated with, however, are included.</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -504,53 +519,53 @@ In the following analysis, all editors they have collaborated with, however, are
 </thead>
 <tbody>
 <tr class="odd">
-<td>Herman</td>
-<td>Pelckmans</td>
+<td>Herman_Jan</td>
+<td>Pelckmans_Paul</td>
 <td>24</td>
 </tr>
 <tr class="even">
-<td>Hasquin</td>
-<td>Mortier</td>
+<td>Hasquin_Hervé</td>
+<td>Mortier_Roland</td>
 <td>18</td>
 </tr>
 <tr class="odd">
-<td>Biard</td>
-<td>Leuwers</td>
+<td>Biard_Michel</td>
+<td>Leuwers_Hervé</td>
 <td>12</td>
 </tr>
 <tr class="even">
-<td>Biard</td>
-<td>Bourdin</td>
+<td>Biard_Michel</td>
+<td>Bourdin_Philippe</td>
 <td>11</td>
 </tr>
 <tr class="odd">
-<td>Berchtold</td>
-<td>Porret</td>
+<td>Berchtold_Jacques</td>
+<td>Porret_Michel</td>
 <td>9</td>
 </tr>
 <tr class="even">
-<td>Lüsebrink</td>
-<td>Mix</td>
+<td>Bourdin_Philippe</td>
+<td>Leuwers_Hervé</td>
 <td>8</td>
 </tr>
 <tr class="odd">
-<td>Peeters</td>
-<td>Pelckmans</td>
+<td>Peeters_Kris</td>
+<td>Pelckmans_Paul</td>
 <td>8</td>
 </tr>
 <tr class="even">
-<td>Bourdin</td>
-<td>Leuwers</td>
+<td>Herman_Jan</td>
+<td>Peeters_Kris</td>
 <td>8</td>
 </tr>
 <tr class="odd">
-<td>Herman</td>
-<td>Peeters</td>
-<td>8</td>
+<td>Didier_Béatrice</td>
+<td>Neefs_Jacques</td>
+<td>7</td>
 </tr>
 <tr class="even">
-<td>Didier</td>
-<td>Neefs</td>
+<td>Berchtold_Jacques</td>
+<td>Martin_Christophe</td>
 <td>7</td>
 </tr>
 </tbody>
@@ -562,7 +577,7 @@ In the following analysis, all editors they have collaborated with, however, are
 <h2 class="anchored" data-anchor-id="co-editor-network">Co-editor network</h2>
 <p>Based on the frequency of co-editorships, it is possible to draw a network representation.</p>
 <p>The network visualization shows the editors as nodes, with their weighted degree determining the node size (the more publications they have edited with together with someone else, the larger the node). And it shows the intensity of their collaboration as the edges, with the number of coedited volumes determining the edge thickness (the more publications two editors have collaborated on, the thicker the line between them). The network layout aims to show groups of people who belong to a sub-network of co-editors who, as a group, work together frequently.</p>
-<div class="cell" data-execution_count="91">
+<div class="cell" data-execution_count="260">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_plot(ccc_filtered): </span>
@@ -570,33 +585,44 @@ In the following analysis, all editors they have collaborated with, however, are
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Plot the co-editor data as a network using pyvis. </span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prepare the dataset</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc_filtered</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    ccc.rename(columns<span class="op">=</span>{<span class="st">"count"</span>: <span class="st">"weight"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc[ccc[<span class="st">"weight"</span>] <span class="op">&gt;</span> <span class="dv">0</span>] <span class="co"># for filtering, with "0", all items remain</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    cccf <span class="op">=</span> ccc_filtered</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    cccf.rename(columns<span class="op">=</span>{<span class="st">"count"</span>: <span class="st">"weight"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    cccf <span class="op">=</span> cccf[cccf[<span class="st">"weight"</span>] <span class="op">&gt;</span> <span class="dv">0</span>] <span class="co"># for filtering, with "0", all items remain</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load the data into a NetworkX graph</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    net <span class="op">=</span> Network(<span class="st">'1600px'</span>, <span class="st">'2800px'</span>, notebook<span class="op">=</span><span class="va">True</span>, cdn_resources<span class="op">=</span><span class="st">'in_line'</span>)</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.Graph()</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> ccc.iterrows(): </span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        G.add_edge(line[<span class="dv">1</span>][<span class="dv">0</span>], line[<span class="dv">1</span>][<span class="dv">1</span>], weight<span class="op">=</span>line[<span class="dv">1</span>][<span class="dv">2</span>], title<span class="op">=</span>line[<span class="dv">1</span>][<span class="dv">2</span>])</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> <span class="bu">dict</span>(G.degree)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    degrees.update((x, ((y<span class="op">*</span><span class="dv">10</span>)<span class="op">**</span><span class="fl">0.5</span>)) <span class="cf">for</span> x, y <span class="kw">in</span> degrees.items())</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    nx.set_node_attributes(G, degrees, <span class="st">'size'</span>)</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(G)</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the data using pyvis</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    net.from_nx(G)</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    net.toggle_physics(<span class="va">True</span>)</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    net.show(<span class="st">"figures/coeditor-network.html"</span>)</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G, degrees</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>G, degrees <span class="op">=</span> create_plot(ccc_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> cccf.iterrows(): </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(line[1][0], end="\n")</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        G.add_edge(</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>            <span class="co"># full names</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>            line[<span class="dv">1</span>][<span class="dv">0</span>],</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>            line[<span class="dv">1</span>][<span class="dv">1</span>],</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>            <span class="co"># last names only</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>            <span class="co">#re.split("_", line[1][0])[0],</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>            <span class="co">#re.split("_", line[1][1])[0],</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>            weight<span class="op">=</span>line[<span class="dv">1</span>][<span class="dv">2</span>],</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            title<span class="op">=</span>line[<span class="dv">1</span>][<span class="dv">2</span>],</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> <span class="bu">dict</span>(G.degree)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    degrees.update((x, ((y<span class="op">*</span><span class="dv">10</span>)<span class="op">**</span><span class="fl">0.5</span>)) <span class="cf">for</span> x, y <span class="kw">in</span> degrees.items())</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    nx.set_node_attributes(G, degrees, <span class="st">'size'</span>) </span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The network includes a total of"</span>, <span class="bu">str</span>(nx.number_of_nodes(G)), <span class="st">"editors."</span>)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot the data using pyvis</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    net.from_nx(G)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    net.toggle_physics(<span class="va">True</span>)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    net.show(<span class="st">"figures/coeditor-network.html"</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>create_plot(ccc_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Graph with 308 nodes and 367 edges
+<pre><code>The network includes a total of 618 editors.
 figures/coeditor-network.html</code></pre>
 </div>
 </div>
 <p>This data can be visualized as a network. Click on the following image for an interactive network plot.</p>
+<p>When interpreting the data, please note that (a) the number of key editors selected and (b) the minimum number of collaborations are important parameters of this network. If all editors are included, and/or single collaborations are retained, the network becomes unwieldy (and the graph loads slowly). However, the number of sub-networks, and their degree of connectivity among each other, varies strongly when these parameters are modified.</p>
+<p>The current network uses a total of 618 editors (all 208 editors included in the top-150 editor pairs and all editors connected to them), and does not filter out any rarer collaborations. That’s only around 10% of the total number of editors in the dataset, but at this setting, the network remains readable and already loads quite slowly.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="figures/coeditor-network.html"><img src="figures/coeditor-network_dummy.png" class="img-fluid figure-img"></a></p>
@@ -604,27 +630,82 @@ figures/coeditor-network.html</code></pre>
 </figure>
 </div>
 <p>The visualization shows, like the tabular display, that Herman and Pelckmans (with 24 co-edited volumes the collaborated on!) and Hasquins and Mortier (with 18 edited volumes) are the most intense collaborators in terms of co-editorship.</p>
-<p>More interestingly, however, the network visualisation shows that there are multiple, independent co-editor networks. Some of them are loosely connected between each other, others are entirely disconnected from the main network. And some co-editors serve as connections between several sub-networks, like Sermain connecting the sub-networks of Didier-Neefs, Berchtold and Herman-Pelckmans with each other (the latter two being only indirectly connected, otherwise). Chartier connecting the sub-networks Martin on the one hand, Lüsebrink-Mix on the other.</p>
+<p>More interestingly, however, the network visualisation shows that there are multiple, independent co-editor networks. Some are star-shaped and dominated by one editor working with many different co-editors (like the sub-networks around Grande or Seth). A few are dominated by a binary relationship (like the ones around Neefs and Didier, Hersant et Ramond, Plagnol-Diéval and Cook, or the one made up of Mortier and Hasquin). Others involve a triangular relationship (like the ones involving Herman, Pelckmans, Peeters; or the one with Bourdin, Biard, Leuwers). The unconnected sub-network formed by five co-editors (Bouvier, Brunat, Kohlhauer, Barthélémy, Clerc) is an interesting case of a small but tight and independent co-editor network.</p>
+<p>In addition, many of these sub-networks are loosely connected between each other, while others are entirely disconnected from the main network. And some co-editors serve as connections between several sub-networks. This depends the most, however, at least in my experience, on the number of editors considered and would be best analyzed statistically on the entire network by way of determining nodes with a high betweenness centrality (rather than degree centrality).</p>
 </section>
 <section id="an-additional-look-at-the-graph-data" class="level2">
 <h2 class="anchored" data-anchor-id="an-additional-look-at-the-graph-data">An additional look at the graph data</h2>
-<p>Based on the data modeled as a graph, we can not only visualize it, but also extract some additional information. For example, the total number of co-editorships a given person has engaged in determines their ‘degree’ in the network. This data is already used in the visualization to determine various node sizes, but the people with the highest degrees can be shown here separately as well.</p>
-<div class="cell" data-execution_count="92">
+<p>Based on the data modeled as a graph, we can not only visualize it, but also extract some additional information. This is done here for the entire dataset, not just the top coeditors as in the visualization.</p>
+<p>This essentially shows that, while some <em>editor pairs</em> have worked together particularly frequently (think Herman and Pelckman or Hasquin and Mortier above), they are not necessarily the ones who have engaged in the most co-editorships overall. Lüsebrink and Porret are clearly the people who have engaged in the most co-editor relationships (i.e., cumulated number of co-editors involved in all volumes they co-edited).</p>
+<p>We can also check, as mentioned above, for betweenness centrality of the editors, in order to identify those editors (in the entire graph) that tend to connect otherwise weakly-connected sub-networks.</p>
+<div class="cell" data-execution_count="251">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> check_degrees(degrees): </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Reverse the scaling from the visualization</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    degrees.update((x, ((y<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">10</span>)) <span class="cf">for</span> x, y <span class="kw">in</span> degrees.items())</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> pd.DataFrame.from_dict(degrees, orient<span class="op">=</span><span class="st">"index"</span>, columns<span class="op">=</span>[<span class="st">"degree"</span>])</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    degrees[<span class="st">"coeditor"</span>] <span class="op">=</span> degrees.index</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> degrees[[<span class="st">"coeditor"</span>, <span class="st">"degree"</span>]]</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    degrees.sort_values(by<span class="op">=</span><span class="st">"degree"</span>, ascending<span class="op">=</span><span class="va">False</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Display this as a formatted table    </span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    display(HTML(degrees.head(<span class="dv">10</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>check_degrees(degrees)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_measures(ccc): </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Prepare the dataset</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    ccc.rename(columns<span class="op">=</span>{<span class="st">"count"</span>: <span class="st">"weight"</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    ccc <span class="op">=</span> ccc[ccc[<span class="st">"weight"</span>] <span class="op">&gt;</span> <span class="dv">0</span>] <span class="co"># for filtering (0 is slow but complete)</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load the data into a NetworkX graph</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.Graph()</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> line <span class="kw">in</span> ccc.iterrows(): </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        G.add_edge(</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>            line[<span class="dv">1</span>][<span class="dv">0</span>],</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>            line[<span class="dv">1</span>][<span class="dv">1</span>],</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>            weight<span class="op">=</span>line[<span class="dv">1</span>][<span class="dv">2</span>],</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Number of editors included in this Graph: "</span> <span class="op">+</span> <span class="bu">str</span>(nx.number_of_nodes(G)) <span class="op">+</span> <span class="st">"."</span>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the degrees</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    dg <span class="op">=</span> <span class="bu">dict</span>(G.degree)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the betweenness centralities</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># See: https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.betweenness_centrality.html</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    bc <span class="op">=</span> nx.betweenness_centrality(</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        G,</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        k<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        normalized<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        weight<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        endpoints<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        seed<span class="op">=</span><span class="va">None</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get eigenvector centrality</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>    ec <span class="op">=</span> nx.eigenvector_centrality(</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>        G,</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>        max_iter<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        tol<span class="op">=</span><span class="fl">1e-03</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Merge results into a dataframe</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    dg <span class="op">=</span> pd.DataFrame.from_dict(dg, orient<span class="op">=</span><span class="st">"index"</span>, columns<span class="op">=</span>[<span class="st">"degree"</span>])</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    dg[<span class="st">"coeditor"</span>] <span class="op">=</span> dg.index</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>    bc <span class="op">=</span> pd.DataFrame.from_dict(bc, orient<span class="op">=</span><span class="st">"index"</span>, columns<span class="op">=</span>[<span class="st">"betweenness"</span>])</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>    bc[<span class="st">"coeditor"</span>] <span class="op">=</span> bc.index</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>    ec <span class="op">=</span> pd.DataFrame.from_dict(ec, orient<span class="op">=</span><span class="st">"index"</span>, columns<span class="op">=</span>[<span class="st">"eigenvector"</span>])</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    ec[<span class="st">"coeditor"</span>] <span class="op">=</span> ec.index</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    <span class="co">#measures = dg.merge(ec, how="inner", on="coeditor")</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    measures <span class="op">=</span> dg.merge(bc, on<span class="op">=</span><span class="st">'coeditor'</span>).merge(ec,on<span class="op">=</span><span class="st">'coeditor'</span>)</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    measures <span class="op">=</span> measures[[<span class="st">"coeditor"</span>, <span class="st">"degree"</span>, <span class="st">"betweenness"</span>, <span class="st">"eigenvector"</span>]]</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> measures</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>measures <span class="op">=</span> calculate_measures(ccc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of editors included in this Graph: 5857.</code></pre>
+</div>
+</div>
+<p>Now we can look at the various graph measures calculated above on the entire network of editors.</p>
+<p>First, the editors with the highes value for degree (number of connections). This describes the total number of co-editorships a given person has engaged in.</p>
+<div class="cell" data-execution_count="240">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_degree(measures): </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    measures.sort_values(by<span class="op">=</span><span class="st">"degree"</span>, ascending<span class="op">=</span><span class="va">False</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#measures.drop("betweenness", axis=1, inplace=True)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    display(HTML(measures.head(<span class="dv">15</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>show_degree(measures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -632,54 +713,334 @@ figures/coeditor-network.html</code></pre>
 <tr class="header">
 <th data-quarto-table-cell-role="th">coeditor</th>
 <th data-quarto-table-cell-role="th">degree</th>
+<th data-quarto-table-cell-role="th">betweenness</th>
+<th data-quarto-table-cell-role="th">eigenvector</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Martin</td>
-<td>49.0</td>
+<td>Lüsebrink_Hans-Jürgen</td>
+<td>23</td>
+<td>0.003794</td>
+<td>0.083962</td>
 </tr>
 <tr class="even">
-<td>Bourdin</td>
-<td>24.0</td>
+<td>Porret_Michel</td>
+<td>22</td>
+<td>0.010365</td>
+<td>0.119891</td>
 </tr>
 <tr class="odd">
-<td>Lüsebrink</td>
-<td>23.0</td>
+<td>Delon_Michel</td>
+<td>18</td>
+<td>0.006522</td>
+<td>0.056028</td>
 </tr>
 <tr class="even">
-<td>Porret</td>
-<td>22.0</td>
+<td>Bourdin_Philippe</td>
+<td>18</td>
+<td>0.003496</td>
+<td>0.144208</td>
 </tr>
 <tr class="odd">
-<td>Berchtold</td>
-<td>21.0</td>
+<td>Berchtold_Jacques</td>
+<td>18</td>
+<td>0.009650</td>
+<td>0.109268</td>
 </tr>
 <tr class="even">
-<td>Leuwers</td>
-<td>17.0</td>
+<td>Seth_Catriona</td>
+<td>18</td>
+<td>0.009246</td>
+<td>0.077731</td>
 </tr>
 <tr class="odd">
-<td>Herman</td>
-<td>16.0</td>
+<td>Paganini_Gianni</td>
+<td>17</td>
+<td>0.002495</td>
+<td>0.044534</td>
 </tr>
 <tr class="even">
-<td>Biard</td>
-<td>14.0</td>
+<td>Leuwers_Hervé</td>
+<td>17</td>
+<td>0.001157</td>
+<td>0.146392</td>
 </tr>
 <tr class="odd">
-<td>Rosset</td>
-<td>13.0</td>
+<td>Bertrand_Gilles</td>
+<td>15</td>
+<td>0.002956</td>
+<td>0.091261</td>
 </tr>
 <tr class="even">
-<td>Barbier</td>
-<td>13.0</td>
+<td>Moureau_François</td>
+<td>15</td>
+<td>0.005221</td>
+<td>0.043103</td>
+</tr>
+<tr class="odd">
+<td>Sermain_Jean-Paul</td>
+<td>14</td>
+<td>0.001867</td>
+<td>0.092878</td>
+</tr>
+<tr class="even">
+<td>Biard_Michel</td>
+<td>14</td>
+<td>0.001946</td>
+<td>0.153647</td>
+</tr>
+<tr class="odd">
+<td>Lotterie_Florence</td>
+<td>14</td>
+<td>0.004941</td>
+<td>0.051646</td>
+</tr>
+<tr class="even">
+<td>Hébert_Pierre</td>
+<td>13</td>
+<td>0.000917</td>
+<td>0.257840</td>
+</tr>
+<tr class="odd">
+<td>Herman_Jan</td>
+<td>13</td>
+<td>0.001173</td>
+<td>0.088922</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<p>This essentially shows that, while some editors <em>pairs</em> have worked together particularly frequently (think Herman and Pelckman or Hasquin and Mortier above), they are not necessarily the ones who have engaged in the most co-editorships overall. Martin is clearly the person who has engaged in the most co-editor relationships (i.e., cumulated number of co-editors involved in all volumes he co-edited).</p>
+<p>Similarly, we can look at the betweenness centrality. This is a measure that describes how much an editor acts as a connection between various subnetworks. “Betweenness centrality quantifies the number of times a node acts as a bridge along the shortest path between two other nodes”, as per Wikipedia.</p>
+<div class="cell" data-execution_count="241">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_betweenness(measures): </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    measures.sort_values(by<span class="op">=</span><span class="st">"betweenness"</span>, ascending<span class="op">=</span><span class="va">False</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    display(HTML(measures.head(<span class="dv">15</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>show_betweenness(measures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">coeditor</th>
+<th data-quarto-table-cell-role="th">degree</th>
+<th data-quarto-table-cell-role="th">betweenness</th>
+<th data-quarto-table-cell-role="th">eigenvector</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Porret_Michel</td>
+<td>22</td>
+<td>0.010365</td>
+<td>0.119891</td>
+</tr>
+<tr class="even">
+<td>Berchtold_Jacques</td>
+<td>18</td>
+<td>0.009650</td>
+<td>0.109268</td>
+</tr>
+<tr class="odd">
+<td>Seth_Catriona</td>
+<td>18</td>
+<td>0.009246</td>
+<td>0.077731</td>
+</tr>
+<tr class="even">
+<td>Bernier_Marc André</td>
+<td>11</td>
+<td>0.008750</td>
+<td>0.050466</td>
+</tr>
+<tr class="odd">
+<td>Delon_Michel</td>
+<td>18</td>
+<td>0.006522</td>
+<td>0.056028</td>
+</tr>
+<tr class="even">
+<td>Moureau_François</td>
+<td>15</td>
+<td>0.005221</td>
+<td>0.043103</td>
+</tr>
+<tr class="odd">
+<td>Volpilhac-Auger_Catherine</td>
+<td>11</td>
+<td>0.004951</td>
+<td>0.034832</td>
+</tr>
+<tr class="even">
+<td>Lotterie_Florence</td>
+<td>14</td>
+<td>0.004941</td>
+<td>0.051646</td>
+</tr>
+<tr class="odd">
+<td>Hersant_Marc</td>
+<td>11</td>
+<td>0.004284</td>
+<td>0.044056</td>
+</tr>
+<tr class="even">
+<td>Plagnol-Diéval_Marie-Emmanuelle</td>
+<td>11</td>
+<td>0.004219</td>
+<td>0.036868</td>
+</tr>
+<tr class="odd">
+<td>Mondot_Jean</td>
+<td>10</td>
+<td>0.004156</td>
+<td>0.023244</td>
+</tr>
+<tr class="even">
+<td>Krief_Huguette</td>
+<td>8</td>
+<td>0.004055</td>
+<td>0.026753</td>
+</tr>
+<tr class="odd">
+<td>Vasak_Anouchka</td>
+<td>5</td>
+<td>0.004007</td>
+<td>0.041041</td>
+</tr>
+<tr class="even">
+<td>Lüsebrink_Hans-Jürgen</td>
+<td>23</td>
+<td>0.003794</td>
+<td>0.083962</td>
+</tr>
+<tr class="odd">
+<td>Poirson_Martial</td>
+<td>11</td>
+<td>0.003758</td>
+<td>0.084712</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Finally, we can look at eigenvector centrality, a measure of influence in a network.</p>
+<div class="cell" data-execution_count="242">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_eigenvector(measures): </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    measures.sort_values(by<span class="op">=</span><span class="st">"eigenvector"</span>, ascending<span class="op">=</span><span class="va">False</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    display(HTML(measures.head(<span class="dv">15</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>show_eigenvector(measures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">coeditor</th>
+<th data-quarto-table-cell-role="th">degree</th>
+<th data-quarto-table-cell-role="th">betweenness</th>
+<th data-quarto-table-cell-role="th">eigenvector</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hébert_Pierre</td>
+<td>13</td>
+<td>0.000917</td>
+<td>0.257840</td>
+</tr>
+<tr class="even">
+<td>Luneau_Marie-Pier</td>
+<td>12</td>
+<td>0.000228</td>
+<td>0.252006</td>
+</tr>
+<tr class="odd">
+<td>Michon_Jacques</td>
+<td>10</td>
+<td>0.000110</td>
+<td>0.250391</td>
+</tr>
+<tr class="even">
+<td>Brisson_Frédéric</td>
+<td>9</td>
+<td>0.000000</td>
+<td>0.243162</td>
+</tr>
+<tr class="odd">
+<td>Godbout_Patricia</td>
+<td>9</td>
+<td>0.000000</td>
+<td>0.243162</td>
+</tr>
+<tr class="even">
+<td>Mylène Fréchette_Fanie St-Laurent</td>
+<td>9</td>
+<td>0.000000</td>
+<td>0.243162</td>
+</tr>
+<tr class="odd">
+<td>Vincent_Josée</td>
+<td>9</td>
+<td>0.000000</td>
+<td>0.243162</td>
+</tr>
+<tr class="even">
+<td>Drouin_de Sophie</td>
+<td>9</td>
+<td>0.000000</td>
+<td>0.243162</td>
+</tr>
+<tr class="odd">
+<td>Marcel Lajeunesse_Éric Leroux</td>
+<td>9</td>
+<td>0.000000</td>
+<td>0.243162</td>
+</tr>
+<tr class="even">
+<td>Pouliot_Suzanne</td>
+<td>9</td>
+<td>0.000000</td>
+<td>0.243162</td>
+</tr>
+<tr class="odd">
+<td>Biard_Michel</td>
+<td>14</td>
+<td>0.001946</td>
+<td>0.153647</td>
+</tr>
+<tr class="even">
+<td>Leuwers_Hervé</td>
+<td>17</td>
+<td>0.001157</td>
+<td>0.146392</td>
+</tr>
+<tr class="odd">
+<td>Bourdin_Philippe</td>
+<td>18</td>
+<td>0.003496</td>
+<td>0.144208</td>
+</tr>
+<tr class="even">
+<td>Porret_Michel</td>
+<td>22</td>
+<td>0.010365</td>
+<td>0.119891</td>
+</tr>
+<tr class="odd">
+<td>Serna_Pierre</td>
+<td>10</td>
+<td>0.001513</td>
+<td>0.116381</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The eigenvector centrality is interesting because it surfaces editors who do not necessarily have very high degree or betweenness centrality scores, like Pierre Hébert. It remains to be seen what exactly this says about them!</p>
 </section>
 <section id="for-comparison-gephi-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="for-comparison-gephi-visualization">For comparison: Gephi visualization</h2>
