@@ -577,7 +577,7 @@ In the following analysis, all editors they have collaborated with, however, are
 <h2 class="anchored" data-anchor-id="co-editor-network">Co-editor network</h2>
 <p>Based on the frequency of co-editorships, it is possible to draw a network representation.</p>
 <p>The network visualization shows the editors as nodes, with their weighted degree determining the node size (the more publications they have edited with together with someone else, the larger the node). And it shows the intensity of their collaboration as the edges, with the number of coedited volumes determining the edge thickness (the more publications two editors have collaborated on, the thicker the line between them). The network layout aims to show groups of people who belong to a sub-network of co-editors who, as a group, work together frequently.</p>
-<div class="cell" data-execution_count="260">
+<div class="cell" data-execution_count="274">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_plot(ccc_filtered): </span>
@@ -605,7 +605,7 @@ In the following analysis, all editors they have collaborated with, however, are
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            title<span class="op">=</span>line[<span class="dv">1</span>][<span class="dv">2</span>],</span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>            )</span>
 <span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> <span class="bu">dict</span>(G.degree)</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    degrees.update((x, ((y<span class="op">*</span><span class="dv">10</span>)<span class="op">**</span><span class="fl">0.5</span>)) <span class="cf">for</span> x, y <span class="kw">in</span> degrees.items())</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    degrees.update((x, ((y<span class="op">*</span><span class="dv">50</span>)<span class="op">**</span><span class="fl">0.5</span>)) <span class="cf">for</span> x, y <span class="kw">in</span> degrees.items())</span>
 <span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    nx.set_node_attributes(G, degrees, <span class="st">'size'</span>) </span>
 <span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"The network includes a total of"</span>, <span class="bu">str</span>(nx.number_of_nodes(G)), <span class="st">"editors."</span>)</span>
 <span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a></span>
@@ -638,7 +638,7 @@ figures/coeditor-network.html</code></pre>
 <p>Based on the data modeled as a graph, we can not only visualize it, but also extract some additional information. This is done here for the entire dataset, not just the top coeditors as in the visualization.</p>
 <p>This essentially shows that, while some <em>editor pairs</em> have worked together particularly frequently (think Herman and Pelckman or Hasquin and Mortier above), they are not necessarily the ones who have engaged in the most co-editorships overall. Lüsebrink and Porret are clearly the people who have engaged in the most co-editor relationships (i.e., cumulated number of co-editors involved in all volumes they co-edited).</p>
 <p>We can also check, as mentioned above, for betweenness centrality of the editors, in order to identify those editors (in the entire graph) that tend to connect otherwise weakly-connected sub-networks.</p>
-<div class="cell" data-execution_count="251">
+<div class="cell" data-execution_count="265">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_measures(ccc): </span>
@@ -698,13 +698,13 @@ figures/coeditor-network.html</code></pre>
 </div>
 <p>Now we can look at the various graph measures calculated above on the entire network of editors.</p>
 <p>First, the editors with the highes value for degree (number of connections). This describes the total number of co-editorships a given person has engaged in.</p>
-<div class="cell" data-execution_count="240">
+<div class="cell" data-execution_count="266">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_degree(measures): </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    measures.sort_values(by<span class="op">=</span><span class="st">"degree"</span>, ascending<span class="op">=</span><span class="va">False</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#measures.drop("betweenness", axis=1, inplace=True)</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    display(HTML(measures.head(<span class="dv">15</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    degree <span class="op">=</span> measures.drop([<span class="st">"betweenness"</span>, <span class="st">"eigenvector"</span>], axis<span class="op">=</span><span class="dv">1</span>, inplace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    display(HTML(degree.head(<span class="dv">15</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>show_degree(measures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
@@ -713,113 +713,82 @@ figures/coeditor-network.html</code></pre>
 <tr class="header">
 <th data-quarto-table-cell-role="th">coeditor</th>
 <th data-quarto-table-cell-role="th">degree</th>
-<th data-quarto-table-cell-role="th">betweenness</th>
-<th data-quarto-table-cell-role="th">eigenvector</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Lüsebrink_Hans-Jürgen</td>
 <td>23</td>
-<td>0.003794</td>
-<td>0.083962</td>
 </tr>
 <tr class="even">
 <td>Porret_Michel</td>
 <td>22</td>
-<td>0.010365</td>
-<td>0.119891</td>
 </tr>
 <tr class="odd">
 <td>Delon_Michel</td>
 <td>18</td>
-<td>0.006522</td>
-<td>0.056028</td>
 </tr>
 <tr class="even">
 <td>Bourdin_Philippe</td>
 <td>18</td>
-<td>0.003496</td>
-<td>0.144208</td>
 </tr>
 <tr class="odd">
 <td>Berchtold_Jacques</td>
 <td>18</td>
-<td>0.009650</td>
-<td>0.109268</td>
 </tr>
 <tr class="even">
 <td>Seth_Catriona</td>
 <td>18</td>
-<td>0.009246</td>
-<td>0.077731</td>
 </tr>
 <tr class="odd">
 <td>Paganini_Gianni</td>
 <td>17</td>
-<td>0.002495</td>
-<td>0.044534</td>
 </tr>
 <tr class="even">
 <td>Leuwers_Hervé</td>
 <td>17</td>
-<td>0.001157</td>
-<td>0.146392</td>
 </tr>
 <tr class="odd">
 <td>Bertrand_Gilles</td>
 <td>15</td>
-<td>0.002956</td>
-<td>0.091261</td>
 </tr>
 <tr class="even">
 <td>Moureau_François</td>
 <td>15</td>
-<td>0.005221</td>
-<td>0.043103</td>
 </tr>
 <tr class="odd">
 <td>Sermain_Jean-Paul</td>
 <td>14</td>
-<td>0.001867</td>
-<td>0.092878</td>
 </tr>
 <tr class="even">
 <td>Biard_Michel</td>
 <td>14</td>
-<td>0.001946</td>
-<td>0.153647</td>
 </tr>
 <tr class="odd">
 <td>Lotterie_Florence</td>
 <td>14</td>
-<td>0.004941</td>
-<td>0.051646</td>
 </tr>
 <tr class="even">
 <td>Hébert_Pierre</td>
 <td>13</td>
-<td>0.000917</td>
-<td>0.257840</td>
 </tr>
 <tr class="odd">
 <td>Herman_Jan</td>
 <td>13</td>
-<td>0.001173</td>
-<td>0.088922</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <p>Similarly, we can look at the betweenness centrality. This is a measure that describes how much an editor acts as a connection between various subnetworks. “Betweenness centrality quantifies the number of times a node acts as a bridge along the shortest path between two other nodes”, as per Wikipedia.</p>
-<div class="cell" data-execution_count="241">
+<div class="cell" data-execution_count="271">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_betweenness(measures): </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    measures.sort_values(by<span class="op">=</span><span class="st">"betweenness"</span>, ascending<span class="op">=</span><span class="va">False</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    display(HTML(measures.head(<span class="dv">15</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>show_betweenness(measures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    betweenness <span class="op">=</span> measures.drop([<span class="st">"eigenvector"</span>], axis<span class="op">=</span><span class="dv">1</span>, inplace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    display(HTML(betweenness.head(<span class="dv">15</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>show_betweenness(measures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -828,7 +797,6 @@ figures/coeditor-network.html</code></pre>
 <th data-quarto-table-cell-role="th">coeditor</th>
 <th data-quarto-table-cell-role="th">degree</th>
 <th data-quarto-table-cell-role="th">betweenness</th>
-<th data-quarto-table-cell-role="th">eigenvector</th>
 </tr>
 </thead>
 <tbody>
@@ -836,104 +804,90 @@ figures/coeditor-network.html</code></pre>
 <td>Porret_Michel</td>
 <td>22</td>
 <td>0.010365</td>
-<td>0.119891</td>
 </tr>
 <tr class="even">
 <td>Berchtold_Jacques</td>
 <td>18</td>
 <td>0.009650</td>
-<td>0.109268</td>
 </tr>
 <tr class="odd">
 <td>Seth_Catriona</td>
 <td>18</td>
 <td>0.009246</td>
-<td>0.077731</td>
 </tr>
 <tr class="even">
 <td>Bernier_Marc André</td>
 <td>11</td>
 <td>0.008750</td>
-<td>0.050466</td>
 </tr>
 <tr class="odd">
 <td>Delon_Michel</td>
 <td>18</td>
 <td>0.006522</td>
-<td>0.056028</td>
 </tr>
 <tr class="even">
 <td>Moureau_François</td>
 <td>15</td>
 <td>0.005221</td>
-<td>0.043103</td>
 </tr>
 <tr class="odd">
 <td>Volpilhac-Auger_Catherine</td>
 <td>11</td>
 <td>0.004951</td>
-<td>0.034832</td>
 </tr>
 <tr class="even">
 <td>Lotterie_Florence</td>
 <td>14</td>
 <td>0.004941</td>
-<td>0.051646</td>
 </tr>
 <tr class="odd">
 <td>Hersant_Marc</td>
 <td>11</td>
 <td>0.004284</td>
-<td>0.044056</td>
 </tr>
 <tr class="even">
 <td>Plagnol-Diéval_Marie-Emmanuelle</td>
 <td>11</td>
 <td>0.004219</td>
-<td>0.036868</td>
 </tr>
 <tr class="odd">
 <td>Mondot_Jean</td>
 <td>10</td>
 <td>0.004156</td>
-<td>0.023244</td>
 </tr>
 <tr class="even">
 <td>Krief_Huguette</td>
 <td>8</td>
 <td>0.004055</td>
-<td>0.026753</td>
 </tr>
 <tr class="odd">
 <td>Vasak_Anouchka</td>
 <td>5</td>
 <td>0.004007</td>
-<td>0.041041</td>
 </tr>
 <tr class="even">
 <td>Lüsebrink_Hans-Jürgen</td>
 <td>23</td>
 <td>0.003794</td>
-<td>0.083962</td>
 </tr>
 <tr class="odd">
 <td>Poirson_Martial</td>
 <td>11</td>
 <td>0.003758</td>
-<td>0.084712</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <p>Finally, we can look at eigenvector centrality, a measure of influence in a network.</p>
-<div class="cell" data-execution_count="242">
+<div class="cell" data-execution_count="270">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_eigenvector(measures): </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    measures.sort_values(by<span class="op">=</span><span class="st">"eigenvector"</span>, ascending<span class="op">=</span><span class="va">False</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    display(HTML(measures.head(<span class="dv">15</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>show_eigenvector(measures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    eigenvector <span class="op">=</span> measures.drop([<span class="st">"betweenness"</span>], axis<span class="op">=</span><span class="dv">1</span>, inplace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    display(HTML(eigenvector.head(<span class="dv">15</span>).to_html(index<span class="op">=</span><span class="va">False</span>)))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>show_eigenvector(measures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
@@ -941,7 +895,6 @@ figures/coeditor-network.html</code></pre>
 <tr class="header">
 <th data-quarto-table-cell-role="th">coeditor</th>
 <th data-quarto-table-cell-role="th">degree</th>
-<th data-quarto-table-cell-role="th">betweenness</th>
 <th data-quarto-table-cell-role="th">eigenvector</th>
 </tr>
 </thead>
@@ -949,91 +902,76 @@ figures/coeditor-network.html</code></pre>
 <tr class="odd">
 <td>Hébert_Pierre</td>
 <td>13</td>
-<td>0.000917</td>
 <td>0.257840</td>
 </tr>
 <tr class="even">
 <td>Luneau_Marie-Pier</td>
 <td>12</td>
-<td>0.000228</td>
 <td>0.252006</td>
 </tr>
 <tr class="odd">
 <td>Michon_Jacques</td>
 <td>10</td>
-<td>0.000110</td>
 <td>0.250391</td>
+</tr>
+<tr class="even">
+<td>Vincent_Josée</td>
+<td>9</td>
+<td>0.243162</td>
+</tr>
+<tr class="odd">
+<td>Mylène Fréchette_Fanie St-Laurent</td>
+<td>9</td>
+<td>0.243162</td>
+</tr>
+<tr class="even">
+<td>Godbout_Patricia</td>
+<td>9</td>
+<td>0.243162</td>
+</tr>
+<tr class="odd">
+<td>Drouin_de Sophie</td>
+<td>9</td>
+<td>0.243162</td>
 </tr>
 <tr class="even">
 <td>Brisson_Frédéric</td>
 <td>9</td>
-<td>0.000000</td>
 <td>0.243162</td>
 </tr>
 <tr class="odd">
-<td>Godbout_Patricia</td>
-<td>9</td>
-<td>0.000000</td>
-<td>0.243162</td>
-</tr>
-<tr class="even">
-<td>Mylène Fréchette_Fanie St-Laurent</td>
-<td>9</td>
-<td>0.000000</td>
-<td>0.243162</td>
-</tr>
-<tr class="odd">
-<td>Vincent_Josée</td>
-<td>9</td>
-<td>0.000000</td>
-<td>0.243162</td>
-</tr>
-<tr class="even">
-<td>Drouin_de Sophie</td>
-<td>9</td>
-<td>0.000000</td>
-<td>0.243162</td>
-</tr>
-<tr class="odd">
-<td>Marcel Lajeunesse_Éric Leroux</td>
-<td>9</td>
-<td>0.000000</td>
-<td>0.243162</td>
-</tr>
-<tr class="even">
 <td>Pouliot_Suzanne</td>
 <td>9</td>
-<td>0.000000</td>
+<td>0.243162</td>
+</tr>
+<tr class="even">
+<td>Marcel Lajeunesse_Éric Leroux</td>
+<td>9</td>
 <td>0.243162</td>
 </tr>
 <tr class="odd">
 <td>Biard_Michel</td>
 <td>14</td>
-<td>0.001946</td>
 <td>0.153647</td>
 </tr>
 <tr class="even">
 <td>Leuwers_Hervé</td>
 <td>17</td>
-<td>0.001157</td>
 <td>0.146392</td>
 </tr>
 <tr class="odd">
 <td>Bourdin_Philippe</td>
 <td>18</td>
-<td>0.003496</td>
 <td>0.144208</td>
 </tr>
 <tr class="even">
 <td>Porret_Michel</td>
 <td>22</td>
-<td>0.010365</td>
 <td>0.119891</td>
 </tr>
 <tr class="odd">
 <td>Serna_Pierre</td>
 <td>10</td>
-<td>0.001513</td>
 <td>0.116381</td>
 </tr>
 </tbody>
