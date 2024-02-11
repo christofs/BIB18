@@ -8,6 +8,7 @@ project:
 
 website:
   title: "BIB18"
+  page-navigation: false
   navbar:
     left:
       - href: index.qmd
@@ -20,6 +21,13 @@ website:
       - languages.ipynb
       - coeditors.ipynb
       - coauthors.ipynb
+    tools:
+      - icon: github
+        menu:
+          - text: Source
+            url:  https://github.com/christofs/BIB18
+          - text: Issues
+            url:  https://github.com/christofs/BIB18/issues
 
 format:
   html:
