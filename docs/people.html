@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BIB18 - People</title>
+<title>BIB18 - Most frequently occurring person names</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./people.html" aria-current="page"> 
-<span class="menu-text">People</span></a>
+<span class="menu-text">Most frequently occurring person names</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./publishers.html"> 
@@ -189,11 +189,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#people" id="toc-people" class="nav-link active" data-scroll-target="#people">People</a>
-  <ul class="collapse">
-  <li><a href="#most-frequently-occurring-person-names" id="toc-most-frequently-occurring-person-names" class="nav-link" data-scroll-target="#most-frequently-occurring-person-names">Most frequently occurring person names</a></li>
+  <li><a href="#most-frequently-occurring-person-names" id="toc-most-frequently-occurring-person-names" class="nav-link active" data-scroll-target="#most-frequently-occurring-person-names">Most frequently occurring person names</a></li>
   <li><a href="#visualization-of-the-most-frequent-person-names" id="toc-visualization-of-the-most-frequent-person-names" class="nav-link" data-scroll-target="#visualization-of-the-most-frequent-person-names">Visualization of the most frequent person names</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -202,7 +199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">People</h1>
+<h1 class="title">Most frequently occurring person names</h1>
 </div>
 
 
@@ -219,12 +216,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="people" class="level1">
-<h1>People</h1>
 <section id="most-frequently-occurring-person-names" class="level2">
 <h2 class="anchored" data-anchor-id="most-frequently-occurring-person-names">Most frequently occurring person names</h2>
 <p>This page provides information about person names, i.e.&nbsp;authors and editors.</p>
-<div id="cell-2" class="cell" data-execution_count="1">
+<div id="cell-1" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === Imports === </span></span>
@@ -259,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>bibdata <span class="op">=</span> etree.parse(bibdatafile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-3" class="cell" data-execution_count="2">
+<div id="cell-2" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_personnames(bibdata): </span>
@@ -293,7 +288,7 @@ There are 30514 different person names in the dataset.</code></pre>
 <section id="visualization-of-the-most-frequent-person-names" class="level2">
 <h2 class="anchored" data-anchor-id="visualization-of-the-most-frequent-person-names">Visualization of the most frequent person names</h2>
 <p>These persons could be authors or editors of publications.</p>
-<div id="cell-5" class="cell" data-execution_count="10">
+<div id="cell-4" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> most_frequent_persons(personnames):</span>
@@ -352,7 +347,6 @@ There are 30514 different person names in the dataset.</code></pre>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
