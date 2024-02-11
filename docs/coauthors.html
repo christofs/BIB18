@@ -211,7 +211,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="co-authors" class="level1">
 <h1>Co-authors</h1>
 <p>This page focuses on co-authorship in the <em>XVIIIe siècle: Bibliographie</em>.</p>
-<div id="cell-1" class="cell" data-execution_count="44">
+<div id="cell-1" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === Imports === </span></span>
@@ -245,23 +245,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># === Files and parameters === </span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>wdir <span class="op">=</span> join(<span class="st">"/"</span>, <span class="st">"media"</span>, <span class="st">"christof"</span>, <span class="st">"Data"</span>, <span class="st">"Github"</span>, <span class="st">"christofs"</span>, <span class="st">"BIB18"</span>)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>bibdatafile <span class="op">=</span> join(wdir, <span class="st">"data"</span>, <span class="st">"BIB18_Zotero-RDF_2024-01-02.rdf"</span>) </span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#bibdatafile = join(wdir, "data", "BIB18_Zotero-RDF_TEST.rdf") </span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>bibdatafile <span class="op">=</span> join(<span class="st">"data"</span>, <span class="st">"BIB18_Zotero-RDF_2024-01-02.rdf"</span>) </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co">#bibdatafile = join(wdir, "data", "BIB18_Zotero-RDF_TEST.rdf") </span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># === Load the dataset === </span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_xml(bibdatafile): </span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    bibdata <span class="op">=</span> etree.parse(bibdatafile)</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bibdata</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>bibdata <span class="op">=</span> read_xml(bibdatafile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># === Load the dataset === </span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>bibdata <span class="op">=</span> etree.parse(bibdatafile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="number-of-collaborators-in-co-authorship" class="level2">
 <h2 class="anchored" data-anchor-id="number-of-collaborators-in-co-authorship">Number of collaborators in co-authorship</h2>
 <p>This section determines how frequent co-authorship is in the dataset. This is based on the number of names found within the “authors” element. For a comparison with co-editorship, see the section <a href="co-editors.html">Co-editors</a>.</p>
-<div id="cell-3" class="cell" data-scrolled="true" data-execution_count="45">
+<div id="cell-3" class="cell" data-scrolled="true" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_coauthors(bibdata): </span>
@@ -294,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>As the next step, we want to see how many authors publications in the bibliography typically have, expressed both in counts and in percentages. The table below shows the results.</p>
-<div id="cell-5" class="cell" data-execution_count="46">
+<div id="cell-5" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_coauthordata(coauthors): </span>
@@ -356,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Of course, we can also display these results as a bar chart, for easier visual inspection (and comparison to the barchart in the <a href="coeditors.html">Co-editor section</a>.)</p>
-<div id="cell-7" class="cell" data-execution_count="47">
+<div id="cell-7" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize_coauthordata(coauthordata): </span>
@@ -375,7 +371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span><span class="st">"Number of co-authors"</span>,</span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"Counts (</span><span class="sc">% s</span><span class="st">hown as labels)"</span>,</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            title <span class="op">=</span> <span class="st">"Counts and percentages of different number of co-authors"</span>)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        .save(<span class="st">"figures/coauthor-percentages.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        .save(<span class="st">"figures/coauthor-percentages.svg"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        .show()</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>visualize_coauthordata(coauthordata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -394,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="coauthor-pairs" class="level2">
 <h2 class="anchored" data-anchor-id="coauthor-pairs">Coauthor pairs</h2>
 <p>Even if coauthorship is comparatively rare, we can still try to build a network of co-authors. The table below shows the people most frequently authoring a publication jointly.</p>
-<div id="cell-10" class="cell" data-scrolled="true" data-execution_count="60">
+<div id="cell-10" class="cell" data-scrolled="true" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
@@ -527,7 +523,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="co-author-networks" class="level2">
 <h2 class="anchored" data-anchor-id="co-author-networks">Co-author networks</h2>
 <p>Based on the coauthor pairs, we can now build a network visualisation.</p>
-<div id="cell-12" class="cell" data-execution_count="61">
+<div id="cell-12" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_plot(cac, topn): </span>

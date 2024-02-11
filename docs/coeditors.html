@@ -213,7 +213,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="co-editors" class="level1">
 <h1>Co-editors</h1>
 <p>This page focuses on co-editorship, especially of edited volumes, but including also editions, in the <em>Bibliographie</em>.</p>
-<div id="cell-1" class="cell" data-execution_count="94">
+<div id="cell-1" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># === Imports === </span></span>
@@ -248,26 +248,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># === Files and parameters === </span></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>wdir <span class="op">=</span> join(<span class="st">"/"</span>, <span class="st">"media"</span>, <span class="st">"christof"</span>, <span class="st">"Data"</span>, <span class="st">"Github"</span>, <span class="st">"christofs"</span>, <span class="st">"BIB18"</span>)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>bibdatafile <span class="op">=</span> join(wdir, <span class="st">"data"</span>, <span class="st">"BIB18_Zotero-RDF_2024-01-02.rdf"</span>) </span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#bibdatafile = join(wdir, "data", "BIB18_Zotero-RDF_TEST.rdf") </span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co">#graphviz_file = join(wdir, "figures", "collaboration_coeditors-network.svg") </span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>bibdatafile <span class="op">=</span> join(<span class="st">"data"</span>, <span class="st">"BIB18_Zotero-RDF_2024-01-02.rdf"</span>) </span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#bibdatafile = join(wdir, "data", "BIB18_Zotero-RDF_TEST.rdf") </span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co">#graphviz_file = join(wdir, "figures", "collaboration_coeditors-network.svg") </span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># === Load the dataset === </span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_xml(bibdatafile): </span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    bibdata <span class="op">=</span> etree.parse(bibdatafile)</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bibdata</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>bibdata <span class="op">=</span> read_xml(bibdatafile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># === Load the dataset === </span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_xml(bibdatafile): </span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    bibdata <span class="op">=</span> etree.parse(bibdatafile)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bibdata</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>bibdata <span class="op">=</span> read_xml(bibdatafile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="collecting-all-publications-that-have-editors" class="level2">
 <h2 class="anchored" data-anchor-id="collecting-all-publications-that-have-editors">Collecting all publications that have editors</h2>
 <p>For the time being, only books (including editions) and book sections are considered. Multiple entries of the same edited volume are taken into account only once. This avoids an undue inflation of the number of cases of co-editorship in cases where multiple chapters from the same edited volume are present in the database.</p>
 <p>Note that there is a peculiar practice in the French publishing landscape, that of edited volumes that have been edited (‘dirigé’) by one or several people in collaboration with one or several other people (‘avec la collaboration de’). The role of these latter collaborators, whether as scientific co-editors with a slightly lesser degree of responsibility than the main editor, or rather as editorial assistants, is not always clear. In addition, they are sometimes named on the front page, sometimes only in the front matter. Finally, this information is not represented clearly in the dataset at this point, so some caution is advised.</p>
-<div id="cell-3" class="cell" data-scrolled="true" data-execution_count="109">
+<div id="cell-3" class="cell" data-scrolled="true" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_editordata(bibdata): </span>
@@ -336,7 +335,7 @@ Overall, there are 37480 publications included at this point.</code></pre>
 <section id="prevalence-of-co-editor-numbers" class="level2">
 <h2 class="anchored" data-anchor-id="prevalence-of-co-editor-numbers">Prevalence of co-editor numbers</h2>
 <p>Based on the data on book titles that have one or several editors, we can now investigate the prevalence of the different numbers of editors books typically have. The following table shows this data.</p>
-<div id="cell-6" class="cell" data-execution_count="110">
+<div id="cell-6" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_coeditor_numbers(editordata): </span>
@@ -407,7 +406,7 @@ Overall, there are 37480 publications included at this point.</code></pre>
 </div>
 </div>
 <p>The following visualization shows counts and percentages for different numbers of co-editors.</p>
-<div id="cell-8" class="cell" data-execution_count="111">
+<div id="cell-8" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> visualize_coeditor_numbers(coeditors): </span>
@@ -427,7 +426,7 @@ Overall, there are 37480 publications included at this point.</code></pre>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span><span class="st">"Number of co-editors"</span>,</span>
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span><span class="st">"Counts (</span><span class="sc">% s</span><span class="st">hown as labels)"</span>,</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            title <span class="op">=</span> <span class="st">"Counts and percentages of different number of co-editors"</span>)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        .save(<span class="st">"figures/coeditor-percentages.png"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        .save(<span class="st">"figures/coeditor-percentages.svg"</span>, dpi<span class="op">=</span><span class="dv">300</span>)</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        .show()</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>visualize_coeditor_numbers(coeditors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -446,7 +445,7 @@ Overall, there are 37480 publications included at this point.</code></pre>
 <section id="coeditor-pairs" class="level2">
 <h2 class="anchored" data-anchor-id="coeditor-pairs">Coeditor pairs</h2>
 <p>This section looks at which people have frequently collaborated as editors of edited volumes and/or editions. The table below shows the 10 most active pairs of editors.</p>
-<div id="cell-11" class="cell" data-scrolled="true" data-execution_count="257">
+<div id="cell-11" class="cell" data-scrolled="true" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
@@ -462,8 +461,8 @@ Overall, there are 37480 publications included at this point.</code></pre>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Define filenames for output. </span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    coeditorcounts_top_file <span class="op">=</span> join(wdir, <span class="st">"results"</span>, <span class="st">"coeditor-counts_top.csv"</span>)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    coeditorcounts_full_file <span class="op">=</span> join(wdir, <span class="st">"results"</span>, <span class="st">"coeditor-counts_full.csv"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    coeditorcounts_top_file <span class="op">=</span> join(<span class="st">"results"</span>, <span class="st">"coeditor-counts_top.csv"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    coeditorcounts_full_file <span class="op">=</span> join(<span class="st">"results"</span>, <span class="st">"coeditor-counts_full.csv"</span>)</span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get editor names from editordata. </span></span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    coeditors <span class="op">=</span> editordata.values()</span>
@@ -596,7 +595,7 @@ In the following analysis, all editors they have collaborated with, however, are
 <h2 class="anchored" data-anchor-id="co-editor-network">Co-editor network</h2>
 <p>Based on the frequency of co-editorships, it is possible to draw a network representation.</p>
 <p>The network visualization shows the editors as nodes, with their weighted degree determining the node size (the more publications they have edited with together with someone else, the larger the node). And it shows the intensity of their collaboration as the edges, with the number of coedited volumes determining the edge thickness (the more publications two editors have collaborated on, the thicker the line between them). The network layout aims to show groups of people who belong to a sub-network of co-editors who, as a group, work together frequently.</p>
-<div id="cell-13" class="cell" data-execution_count="274">
+<div id="cell-13" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_plot(ccc_filtered): </span>
@@ -657,7 +656,7 @@ figures/coeditor-network.html</code></pre>
 <p>Based on the data modeled as a graph, we can not only visualize it, but also extract some additional information. This is done here for the entire dataset, not just the top coeditors as in the visualization.</p>
 <p>This essentially shows that, while some <em>editor pairs</em> have worked together particularly frequently (think Herman and Pelckman or Hasquin and Mortier above), they are not necessarily the ones who have engaged in the most co-editorships overall. Lüsebrink and Porret are clearly the people who have engaged in the most co-editor relationships (i.e., cumulated number of co-editors involved in all volumes they co-edited).</p>
 <p>We can also check, as mentioned above, for betweenness centrality of the editors, in order to identify those editors (in the entire graph) that tend to connect otherwise weakly-connected sub-networks.</p>
-<div id="cell-19" class="cell" data-execution_count="265">
+<div id="cell-19" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_measures(ccc): </span>
@@ -717,7 +716,7 @@ figures/coeditor-network.html</code></pre>
 </div>
 <p>Now we can look at the various graph measures calculated above on the entire network of editors.</p>
 <p>First, the editors with the highes value for degree (number of connections). This describes the total number of co-editorships a given person has engaged in.</p>
-<div id="cell-21" class="cell" data-execution_count="266">
+<div id="cell-21" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_degree(measures): </span>
@@ -800,7 +799,7 @@ figures/coeditor-network.html</code></pre>
 </div>
 </div>
 <p>Similarly, we can look at the betweenness centrality. This is a measure that describes how much an editor acts as a connection between various subnetworks. “Betweenness centrality quantifies the number of times a node acts as a bridge along the shortest path between two other nodes”, as per Wikipedia.</p>
-<div id="cell-23" class="cell" data-execution_count="271">
+<div id="cell-23" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_betweenness(measures): </span>
@@ -899,7 +898,7 @@ figures/coeditor-network.html</code></pre>
 </div>
 </div>
 <p>Finally, we can look at eigenvector centrality, a measure of influence in a network.</p>
-<div id="cell-25" class="cell" data-execution_count="270">
+<div id="cell-25" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> show_eigenvector(measures): </span>
@@ -934,37 +933,37 @@ figures/coeditor-network.html</code></pre>
 <td>0.250391</td>
 </tr>
 <tr class="even">
-<td>Vincent_Josée</td>
-<td>9</td>
-<td>0.243162</td>
-</tr>
-<tr class="odd">
-<td>Mylène Fréchette_Fanie St-Laurent</td>
-<td>9</td>
-<td>0.243162</td>
-</tr>
-<tr class="even">
-<td>Godbout_Patricia</td>
-<td>9</td>
-<td>0.243162</td>
-</tr>
-<tr class="odd">
-<td>Drouin_de Sophie</td>
-<td>9</td>
-<td>0.243162</td>
-</tr>
-<tr class="even">
 <td>Brisson_Frédéric</td>
 <td>9</td>
 <td>0.243162</td>
 </tr>
 <tr class="odd">
-<td>Pouliot_Suzanne</td>
+<td>Godbout_Patricia</td>
 <td>9</td>
 <td>0.243162</td>
 </tr>
 <tr class="even">
+<td>Mylène Fréchette_Fanie St-Laurent</td>
+<td>9</td>
+<td>0.243162</td>
+</tr>
+<tr class="odd">
+<td>Vincent_Josée</td>
+<td>9</td>
+<td>0.243162</td>
+</tr>
+<tr class="even">
+<td>Drouin_de Sophie</td>
+<td>9</td>
+<td>0.243162</td>
+</tr>
+<tr class="odd">
 <td>Marcel Lajeunesse_Éric Leroux</td>
+<td>9</td>
+<td>0.243162</td>
+</tr>
+<tr class="even">
+<td>Pouliot_Suzanne</td>
 <td>9</td>
 <td>0.243162</td>
 </tr>
