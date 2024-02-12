@@ -7,7 +7,7 @@ title: "BIB18"
 
 ## Overview 
 
-Some analyses of the dataset are available on the present website. The analyses are based on the RDF version of the data (currently, v0.1.0, May 20, 2023) and have been performed by Christof Schöch. Note that all numbers can be expected to shift slighly as the process of cleaning the data proceeds. Collaborative authorship / editorship as well as the publication types will most likely be most affected by corrections. The scripts used to create the analyses are integrated into the pages on this website for inspection (click on `Code`), but are also available as Jupyter Notebooks at [github.com/christofs/BIB18](https://github.com/christofs/BIB18).
+Some analyses of the dataset are available on the present website. The analyses are based on the RDF version of the data (currently, v0.3.0, January 20, 2024) and have been performed by Christof Schöch. Note that all numbers can be expected to shift slighly as the process of cleaning the data proceeds. Collaborative authorship / editorship as well as the publication types will most likely be most affected by corrections. The scripts used to create the analyses are integrated into the pages on this website for inspection (click on `Code`), but are also available as Jupyter Notebooks at [github.com/christofs/BIB18](https://github.com/christofs/BIB18).
 
 Source of the data: Benoît Melançon. For background information see his ["Libération des données"](https://benoitmelancon.quebec/xviii/donnees_biblios_1_550.html) and for the corresponding Dataverse deposit, see [doi.org/10.5683/SP3/PYYEEH](https://doi.org/10.5683/SP3/PYYEEH). 
 
